@@ -30,7 +30,7 @@ public class MainComponent implements Runnable {
 
 	public boolean running = false;
 
-	private boolean debugMode = true;
+	private boolean debugMode = false;
 	
 	private GameState gs;
 	
@@ -86,11 +86,6 @@ public class MainComponent implements Runnable {
 
 			frame[i].setResizable(true);
 			frame[i].setLocationRelativeTo(null);
-			
-			if(i == 0) {
-				canvas[i].addKeyListener(input);
-				canvas[i].requestFocus();
-			}
 
 //			if (!debugMode)
 //				image[i] = new BufferedImage(screenSize(i).width / SCALE, screenSize(i).height / SCALE, BufferedImage.TYPE_INT_RGB);
@@ -115,6 +110,8 @@ public class MainComponent implements Runnable {
 
 			frame[i].setVisible(true);
 		}
+		canvas[0].addKeyListener(input);
+		canvas[0].requestFocus();
 	}
 
 	public synchronized void start() {

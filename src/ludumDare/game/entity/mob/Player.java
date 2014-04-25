@@ -7,10 +7,16 @@ import ludumDare.input.InputHandler;
 
 public class Player extends Mob {
 	private InputHandler input;
+	
+	private int upKey, downKey, leftKey, rightKey;
 
-	public Player(InputHandler i, int x, int y) {
+	public Player(InputHandler i, int x, int y, int u, int d, int r, int l) {
 		super(x, y);
 		input = i;
+		upKey = u;
+		downKey = d;
+		leftKey = l;
+		rightKey = r;
 	}
 	
 	public void render(Bitmap b) {
@@ -18,13 +24,13 @@ public class Player extends Mob {
 	}
 
 	public void tick() {
-		if (input.keys[KeyEvent.VK_RIGHT]) 
+		if (input.keys[rightKey]) 
 			x++;
-		if (input.keys[KeyEvent.VK_LEFT])
+		if (input.keys[leftKey])
 			x--;
-		if (input.keys[KeyEvent.VK_DOWN]) 
+		if (input.keys[downKey]) 
 			y++;
-		if (input.keys[KeyEvent.VK_UP])
+		if (input.keys[upKey])
 			y--;
 	}
 }

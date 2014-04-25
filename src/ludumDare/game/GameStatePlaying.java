@@ -1,5 +1,7 @@
 package ludumDare.game;
 
+import java.awt.event.KeyEvent;
+
 import ludumDare.MainComponent;
 import ludumDare.game.entity.mob.Player;
 import ludumDare.game.level.Level;
@@ -10,19 +12,14 @@ public class GameStatePlaying extends GameState {
 	private Level l1;
 	private Level l2;
 	
-	private Player p1;
-	private Player p2;
-	
 	public GameStatePlaying(MainComponent m, InputHandler i) {
 		super(m, i);
 		l1 = new Level(64, 64);
 		l2 = new Level(64, 64);
-		
-		p1 = new Player(input, 50, 50);
-		p2 = new Player(input, 50, 50);
-		
-//		for (int i0 = 0; i0 < 1000; i0++)
-//			l1.addEntity(new Player(input, i0 % 10, i0 / 10));
+//		p2 = new Player(input, 50, 50);
+
+		l1.addEntity(new Player(input, 50, 50, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_D, KeyEvent.VK_A));
+		l2.addEntity(new Player(input, 50, 50, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT));
 	}
 	
 	public void render(Bitmap b1, Bitmap b2) {
