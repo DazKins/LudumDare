@@ -69,14 +69,14 @@ public class MainComponent implements Runnable {
 				canvas[i].setMaximumSize(d);
 				canvas[i].setPreferredSize(d);
 			} else {
-				canvas[i].setMinimumSize(new Dimension(480, 270));
-				canvas[i].setMaximumSize(new Dimension(480, 270));
-				canvas[i].setPreferredSize(new Dimension(480, 270));
+				canvas[i].setMinimumSize(new Dimension(635, 405));
+				canvas[i].setMaximumSize(new Dimension(635, 405));
+				canvas[i].setPreferredSize(new Dimension(635, 405));
 			}
 
 			frame[i] = new JFrame(NAME + ": Window " + (i + 1));
 			// to close the frames, use Alt+F4
-			if (!debugMode)
+//			if (!debugMode)
 				frame[i].setUndecorated(true);
 			frame[i].setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame[i].setLayout(new BorderLayout());
@@ -84,7 +84,7 @@ public class MainComponent implements Runnable {
 			frame[i].add(canvas[i], BorderLayout.CENTER);
 			frame[i].pack();
 
-			frame[i].setResizable(false);
+			frame[i].setResizable(true);
 			frame[i].setLocationRelativeTo(null);
 			
 			if(i == 0) {
@@ -95,7 +95,7 @@ public class MainComponent implements Runnable {
 			if (!debugMode)
 				image[i] = new BufferedImage(screenSize(i).width / SCALE, screenSize(i).height / SCALE, BufferedImage.TYPE_INT_RGB);
 			else
-				image[i] = new BufferedImage((int) (480.0f / SCALE), (int) (270.0f / SCALE), BufferedImage.TYPE_INT_RGB);
+				image[i] = new BufferedImage((int) (635.0f / SCALE), (int) (405.0f / SCALE), BufferedImage.TYPE_INT_RGB);
 
 			bitmap[i] = new Bitmap(image[i]);
 
@@ -107,7 +107,7 @@ public class MainComponent implements Runnable {
 				}
 			} else {
 				if (i == 1) {
-					frame[i].setLocation(480, 0);
+					frame[i].setLocation(635 + 10, 0);
 				} else {
 					frame[i].setLocation(0, 0);
 				}
