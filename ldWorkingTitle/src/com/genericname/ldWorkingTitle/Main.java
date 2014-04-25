@@ -24,6 +24,9 @@ public class Main extends Canvas implements Runnable {
 		setMaximumSize(new Dimension(totWidth, maxHeight));
 		setPreferredSize(new Dimension(totWidth, maxHeight));
 		
+		Main windowone = new Main();
+		Main windowtwo = new Main();
+		
 		for (int i = 0; i <2; i++){
 			frame[i] = new JFrame(NAME + ": Window " + i);
 			
