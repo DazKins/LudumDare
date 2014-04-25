@@ -4,7 +4,10 @@ import java.awt.Dimension;
 import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class MainComponent implements Runnable {
@@ -45,16 +48,27 @@ public class MainComponent implements Runnable {
 			canvas[i].setMaximumSize(ScreenSize(i));
 			canvas[i].setPreferredSize(ScreenSize(i));
 
-			frame[i] = new JFrame(NAME + ": Window " + i);
+			frame[i] = new JFrame(NAME + ": Window " + (i+1));
+			//to close the frames, use Alt+F4			
+			frame[i].setUndecorated(true);
 			frame[i].setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame[i].setLayout(new BorderLayout());
 
 			frame[i].add(canvas[i], BorderLayout.CENTER);
 			frame[i].pack();
-
+			
 			frame[i].setResizable(false);
 			frame[i].setLocationRelativeTo(null);
+			
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			GraphicsDevice[] gs = ge.getScreenDevices();
+			gs[i].setFullScreenWindow(frame[i]);
+			
+			
+			
 			frame[i].setVisible(true);
+			
+			
 
 		}
 	}
