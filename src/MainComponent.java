@@ -8,6 +8,8 @@ public class MainComponent {
 	private JFrame j1;
 	private JFrame j2;
 	
+	
+	
 	public static void main(String args[]) {
 		System.out.println("test");
 	}
