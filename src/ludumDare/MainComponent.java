@@ -123,6 +123,7 @@ public class MainComponent implements Runnable {
 			frame[i].setVisible(true);
 		}
 		canvas[0].addKeyListener(input);
+		canvas[1].addKeyListener(input);
 		canvas[0].requestFocus();
 	}
 

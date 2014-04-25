@@ -34,8 +34,7 @@ public class Bitmap {
 	}
 	
 	public void setPixel(int x, int y,int c) {
-		if (c != 0xFF00FF)
-			pixels[x + y * w] = c;
+		pixels[x + y * w] = c;
 	}
 	
 	public void clear() {
