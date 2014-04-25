@@ -39,7 +39,7 @@ public class Bitmap {
 		}
 	}
 	
-	public void blit(int xp, int yp, Bitmap b) {
+	public void blit(int xp, int yp, Bitmap b, boolean xFlip, boolean yFlip) {
 		int x0 = xp;
 		int y0 = yp;
 		int x1 = xp + b.w;
@@ -55,8 +55,14 @@ public class Bitmap {
 			y1 = h;
 		
 		for (int x = x0; x < x1; x++) {
+			int xc = x - xp;
+			if (xFlip)
+				xc = b.w - xc - 1;
 			for (int y = y0; y < y1; y++) {
-				int nPixel = b.getPixel(x - xp, y - yp);
+				int yc = y - yp;
+				if (yFlip)
+					yc = b.h - yc - 1;
+				int nPixel = b.getPixel(xc, yc);
 				pixels[x + y * w] = nPixel;
 			}
 		}

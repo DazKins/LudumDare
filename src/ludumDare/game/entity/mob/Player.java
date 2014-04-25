@@ -14,7 +14,7 @@ public class Player extends Mob {
 	}
 	
 	public void render(Bitmap b) {
-		b.blit(x, y, Art.sprites[0][0]);
+		b.blit(x, y, Art.sprites[0][0], true, true);
 	}
 
 	public void tick() {
