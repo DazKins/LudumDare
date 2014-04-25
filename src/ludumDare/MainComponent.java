@@ -1,10 +1,5 @@
 package ludumDare;
 
-import ludumDare.game.GameState;
-import ludumDare.game.GameStatePlaying;
-import ludumDare.gfx.Art;
-import ludumDare.gfx.Bitmap;
-
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Dimension;
@@ -12,10 +7,17 @@ import java.awt.DisplayMode;
 import java.awt.Graphics;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
+
+import ludumDare.game.GameState;
+import ludumDare.game.GameStatePlaying;
+import ludumDare.gfx.Art;
+import ludumDare.gfx.Bitmap;
+import ludumDare.input.InputHandler;
 
 public class MainComponent implements Runnable {
 	private static int SCALE = 3;
@@ -31,6 +33,8 @@ public class MainComponent implements Runnable {
 	private boolean debugMode = true;
 	
 	private GameState gs;
+	
+	private InputHandler input;
 
 	public static void main(String args[]) {
 		Art.init();
@@ -53,7 +57,8 @@ public class MainComponent implements Runnable {
 	}
 
 	public MainComponent() {
-		gs = new GameStatePlaying();
+		input = new InputHandler();
+		gs = new GameStatePlaying(this, input);
 		for (int i = 0; i < 2; i++) {
 			canvas[i] = new Canvas();
 
@@ -79,6 +84,11 @@ public class MainComponent implements Runnable {
 
 			frame[i].setResizable(false);
 			frame[i].setLocationRelativeTo(null);
+			
+			if(i == 0) {
+				canvas[i].addKeyListener(input);
+				canvas[i].requestFocus();
+			}
 
 			if (!debugMode)
 				image[i] = new BufferedImage(screenSize(i).width / SCALE,
@@ -151,10 +161,13 @@ public class MainComponent implements Runnable {
 	}
 
 	public void tick() {
-
+		gs.tick();
 	}
 
 	public void render() {
+		for (int i = 0; i < 2; i++) {
+			bitmap[i].clear();
+		}
 		gs.render(bitmap[0], bitmap[1]);
 		for (int i = 0; i < 2; i++) {
 			Canvas cCanvas = canvas[i];

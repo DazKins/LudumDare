@@ -33,6 +33,12 @@ public class Bitmap {
 		return pixels[x + y * w];
 	}
 	
+	public void clear() {
+		for (int i = 0; i < w * h; i++) {
+			pixels[i] = 0;
+		}
+	}
+	
 	public void blit(int xp, int yp, Bitmap b) {
 		int x0 = xp;
 		int y0 = yp;

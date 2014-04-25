@@ -19,6 +19,12 @@ public class Level {
 		}
 	}
 	
+	public void tick() {
+		for (int i = 0; i < entities.size(); i++) {
+			entities.get(i).tick();
+		}
+	}
+	
 	public void addEntity(Entity e) {
 		entities.add(e);
 	}

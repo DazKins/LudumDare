@@ -14,9 +14,5 @@ public class InputHandler implements KeyListener {
 		keys[e.getKeyCode()] = false;
 	}
 
-	public void keyTyped(KeyEvent e) {
-		
-	}
-	
-	
+	public void keyTyped(KeyEvent e) {}
 }
