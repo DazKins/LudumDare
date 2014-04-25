@@ -28,4 +28,31 @@ public class Bitmap {
 			pixels[i] = new Random().nextInt(0xFFFFFF);
 		}
 	}
+	
+	public int getPixel(int x, int y) {
+		return pixels[x + y * w];
+	}
+	
+	public void blit(int xp, int yp, Bitmap b) {
+		int x0 = xp;
+		int y0 = yp;
+		int x1 = xp + b.w;
+		int y1 = yp + b.h;
+		
+		if (x0 < 0)
+			x0 = 0;
+		if (y0 < 0)
+			y0 = 0;
+		if (x1 > b.w)
+			x1 = b.w;
+		if (y1 > b.h)
+			y1 = b.h;
+		
+		for (int x = x0; x < x1; x++) {
+			for (int y = y0; y < y1; y++) {
+				int nPixel = b.getPixel(x - xp, y - yp);
+				pixels[x + y * w] = nPixel;
+			}
+		}
+	}
 }

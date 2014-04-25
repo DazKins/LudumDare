@@ -1,5 +1,4 @@
 import gfx.Bitmap;
-
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Dimension;
@@ -15,14 +14,16 @@ import javax.swing.JFrame;
 public class MainComponent implements Runnable {
 	private static int SCALE = 3;
 	private static final String NAME = "Game";
-	
+
 	private Canvas[] canvas = new Canvas[2];
 	private JFrame[] frame = new JFrame[2];
 	private BufferedImage[] image = new BufferedImage[2];
 	private Bitmap[] bitmap = new Bitmap[2];
 
+	private Bitmap test = new Bitmap(10, 10);
+
 	public boolean running = false;
-	
+
 	private boolean debugMode = true;
 
 	public static void main(String args[]) {
@@ -31,7 +32,8 @@ public class MainComponent implements Runnable {
 	}
 
 	private static Dimension screenSize(int i) {
-		GraphicsDevice gd[] = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices();
+		GraphicsDevice gd[] = GraphicsEnvironment.getLocalGraphicsEnvironment()
+				.getScreenDevices();
 		int height;
 		int width;
 		Dimension dim;
@@ -47,7 +49,7 @@ public class MainComponent implements Runnable {
 	public MainComponent() {
 		for (int i = 0; i < 2; i++) {
 			canvas[i] = new Canvas();
-			
+
 			if (!debugMode) {
 				canvas[i].setMinimumSize(screenSize(i));
 				canvas[i].setMaximumSize(screenSize(i));
@@ -70,16 +72,19 @@ public class MainComponent implements Runnable {
 
 			frame[i].setResizable(false);
 			frame[i].setLocationRelativeTo(null);
-			
+
 			if (!debugMode)
-				image[i] = new BufferedImage(screenSize(i).width / SCALE, screenSize(i).height / SCALE, BufferedImage.TYPE_INT_RGB);
+				image[i] = new BufferedImage(screenSize(i).width / SCALE,
+						screenSize(i).height / SCALE,
+						BufferedImage.TYPE_INT_RGB);
 			else
-				image[i] = new BufferedImage((int)(480.0f / SCALE), (int)(480.0f / SCALE), BufferedImage.TYPE_INT_RGB);
-			
+				image[i] = new BufferedImage((int) (480.0f / SCALE), (int) (270.0f / SCALE), BufferedImage.TYPE_INT_RGB);
+
 			bitmap[i] = new Bitmap(image[i]);
 
 			if (!debugMode) {
-				GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+				GraphicsEnvironment ge = GraphicsEnvironment
+						.getLocalGraphicsEnvironment();
 				GraphicsDevice[] gs = ge.getScreenDevices();
 				gs[i].setFullScreenWindow(frame[i]);
 			} else {
@@ -89,7 +94,7 @@ public class MainComponent implements Runnable {
 					frame[i].setLocation(0, 0);
 				}
 			}
-			
+
 			frame[i].setVisible(true);
 		}
 	}
@@ -109,25 +114,27 @@ public class MainComponent implements Runnable {
 		long lastTime = System.nanoTime();
 		double nsPerTick = 1000000000D/limit;
 		
+		double nsPerTick = 1000000000D / 60D;
+
 		int frames = 0;
 		int ticks = 0;
-		
+
 		long lastTimer = System.currentTimeMillis();
 		double delta = 0;
-		while (running){
+		while (running) {
 			long now = System.nanoTime();
-			delta += (now - lastTime)/nsPerTick;
+			delta += (now - lastTime) / nsPerTick;
 			lastTime = now;
-			
+
 			while (delta >= 1) {
 				ticks++;
 				tick();
 				delta -= 1;
 			}
-			
+
 			frames++;
 			render();
-			
+
 			if (System.currentTimeMillis() - lastTimer >= 1000) {
 				lastTimer += 1000;
 				System.out.println("FPS: " + frames + ", UPS: " + ticks);
@@ -145,18 +152,18 @@ public class MainComponent implements Runnable {
 		for (int i = 0; i < 2; i++) {
 			Canvas cCanvas = canvas[i];
 			BufferStrategy bs = cCanvas.getBufferStrategy();
-			
+
 			if (bs == null) {
 				cCanvas.createBufferStrategy(3);
 				continue;
 			}
-			
-			bitmap[i].randomize();
-			
+
+			bitmap[0].blit(0, 0, test);
+
 			Graphics g = bs.getDrawGraphics();
-			
+
 			g.drawImage(image[i], 0, 0, cCanvas.getWidth(), cCanvas.getHeight(), null);
-			
+
 			g.dispose();
 			bs.show();
 		}
