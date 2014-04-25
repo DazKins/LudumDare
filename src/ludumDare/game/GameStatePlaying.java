@@ -21,7 +21,8 @@ public class GameStatePlaying extends GameState {
 		p1 = new Player(input, 50, 50);
 		p2 = new Player(input, 50, 50);
 		
-		l1.addEntity(p1);
+//		for (int i0 = 0; i0 < 1000; i0++)
+//			l1.addEntity(new Player(input, i0 % 10, i0 / 10));
 	}
 	
 	public void render(Bitmap b1, Bitmap b2) {

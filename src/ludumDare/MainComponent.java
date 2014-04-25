@@ -61,11 +61,13 @@ public class MainComponent implements Runnable {
 		gs = new GameStatePlaying(this, input);
 		for (int i = 0; i < 2; i++) {
 			canvas[i] = new Canvas();
+			
+			Dimension d = screenSize(i);
 
 			if (!debugMode) {
-				canvas[i].setMinimumSize(screenSize(i));
-				canvas[i].setMaximumSize(screenSize(i));
-				canvas[i].setPreferredSize(screenSize(i));
+				canvas[i].setMinimumSize(d);
+				canvas[i].setMaximumSize(d);
+				canvas[i].setPreferredSize(d);
 			} else {
 				canvas[i].setMinimumSize(new Dimension(480, 270));
 				canvas[i].setMaximumSize(new Dimension(480, 270));
@@ -91,19 +93,18 @@ public class MainComponent implements Runnable {
 			}
 
 			if (!debugMode)
-				image[i] = new BufferedImage(screenSize(i).width / SCALE,
-						screenSize(i).height / SCALE,
-						BufferedImage.TYPE_INT_RGB);
+				image[i] = new BufferedImage(screenSize(i).width / SCALE, screenSize(i).height / SCALE, BufferedImage.TYPE_INT_RGB);
 			else
 				image[i] = new BufferedImage((int) (480.0f / SCALE), (int) (270.0f / SCALE), BufferedImage.TYPE_INT_RGB);
 
 			bitmap[i] = new Bitmap(image[i]);
 
 			if (!debugMode) {
-				GraphicsEnvironment ge = GraphicsEnvironment
-						.getLocalGraphicsEnvironment();
-				GraphicsDevice[] gs = ge.getScreenDevices();
-				gs[i].setFullScreenWindow(frame[i]);
+				if (i == 1) {
+					frame[i].setLocation((int) d.getWidth(), 0);
+				} else {
+					frame[i].setLocation(0, 0);
+				}
 			} else {
 				if (i == 1) {
 					frame[i].setLocation(480, 0);

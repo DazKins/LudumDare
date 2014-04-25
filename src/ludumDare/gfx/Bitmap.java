@@ -33,6 +33,11 @@ public class Bitmap {
 		return pixels[x + y * w];
 	}
 	
+	public void setPixel(int x, int y,int c) {
+		if (c != 0xFFFF00FF)
+			pixels[x + y * w] = c;
+	}
+	
 	public void clear() {
 		for (int i = 0; i < w * h; i++) {
 			pixels[i] = 0;
@@ -63,7 +68,7 @@ public class Bitmap {
 				if (yFlip)
 					yc = b.h - yc - 1;
 				int nPixel = b.getPixel(xc, yc);
-				pixels[x + y * w] = nPixel;
+				setPixel(x, y, nPixel);
 			}
 		}
 	}
