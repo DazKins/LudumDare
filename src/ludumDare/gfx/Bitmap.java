@@ -34,7 +34,7 @@ public class Bitmap {
 	}
 	
 	public void setPixel(int x, int y,int c) {
-		if (c != 0xFFFF00FF)
+		if (c != 0xFF00FF)
 			pixels[x + y * w] = c;
 	}
 	
@@ -44,7 +44,7 @@ public class Bitmap {
 		}
 	}
 	
-	public void blit(int xp, int yp, Bitmap b, boolean xFlip, boolean yFlip) {
+	public void blit(int xp, int yp, Bitmap b, boolean xFlip, boolean yFlip, float alpha) {
 		int x0 = xp;
 		int y0 = yp;
 		int x1 = xp + b.w;
@@ -68,7 +68,14 @@ public class Bitmap {
 				if (yFlip)
 					yc = b.h - yc - 1;
 				int nPixel = b.getPixel(xc, yc);
-				setPixel(x, y, nPixel);
+				if (nPixel != 0xFFFF00FF) { 
+					int oPixel = getPixel(x , y);
+					int rr = (int) (((1 - alpha) * ((oPixel >> 16) & 0xFF)) + (alpha * ((nPixel >> 16) & 0xFF)));
+					int gg = (int) (((1 - alpha) * ((oPixel >> 8) & 0xFF)) + (alpha * ((nPixel >> 8) & 0xFF)));
+					int bb = (int) (((1 - alpha) * ((oPixel >> 0) & 0xFF)) + (alpha * ((nPixel >> 0) & 0xFF)));
+					nPixel = (rr << 16) | (gg << 8) | bb;
+					setPixel(x, y, nPixel);
+				}
 			}
 		}
 	}

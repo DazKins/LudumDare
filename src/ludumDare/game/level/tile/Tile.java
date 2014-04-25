@@ -21,7 +21,7 @@ public class Tile {
 	}
 	
 	public void render(Bitmap b, Level l, int x, int y) {
-		b.blit(x * 8, y * 8, Art.sprites[tx][ty], false, false);
+		b.blit(x * 8, y * 8, Art.sprites[tx][ty], false, false, 1.0f);
 	}
 	
 	

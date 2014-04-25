@@ -7,7 +7,7 @@ public class Font {
 		text = text.toLowerCase();
 		for (int i = 0; i < text.length(); i++) {
 			int indexOf = alphabet.indexOf("" + text.charAt(i));
-			b.blit(i * 9 + x, y, Art.sprites[indexOf % 32][30 + indexOf / 32], false, false);
+			b.blit(i * 9 + x, y, Art.sprites[indexOf % 32][30 + indexOf / 32], false, false, 1.0f);
 		}
 	}
 }
