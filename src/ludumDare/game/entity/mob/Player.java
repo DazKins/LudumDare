@@ -37,13 +37,13 @@ public class Player extends Mob {
 			xa = 1;
 		if (input.keys[leftKey])
 			xa = -1;
-		if (input.keys[jumpKey])
-			ya = -10;
+		if (input.keys[jumpKey]) {
+			if (ya == 0)
+				ya = -2;
+		}
 		
-		ya += 1;
-		
+		ya += 0.045;
 		xa *= 0.875;
-		ya *= 0.875;
 		
 		System.out.println(x);
 		
