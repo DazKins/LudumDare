@@ -7,7 +7,6 @@ import java.awt.DisplayMode;
 import java.awt.Graphics;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
@@ -91,6 +90,10 @@ public class MainComponent implements Runnable {
 			//	image[i] = new BufferedImage(screenSize(i).width / SCALE, screenSize(i).height / SCALE, BufferedImage.TYPE_INT_RGB);
 			//else
 				image[i] = new BufferedImage((int) ((d.getWidth()/d.getHeight()*405.0f) / SCALE), (int) (405.0f / SCALE), BufferedImage.TYPE_INT_RGB);
+			if (!debugMode)
+				image[i] = new BufferedImage(screenSize(i).width / SCALE, screenSize(i).height / SCALE, BufferedImage.TYPE_INT_RGB);
+			else
+				image[i] = new BufferedImage((int) (635.0f / SCALE), (int) (405.0f / SCALE), BufferedImage.TYPE_INT_RGB);
 
 			bitmap[i] = new Bitmap(image[i]);
 
