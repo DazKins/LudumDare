@@ -3,6 +3,7 @@ package ludumDare.game.level.tile;
 import ludumDare.game.level.Level;
 import ludumDare.gfx.Art;
 import ludumDare.gfx.Bitmap;
+import ludumDare.math.AABB;
 
 public class Tile {
 	public static Tile tiles[] = new Tile[256];
@@ -24,5 +25,7 @@ public class Tile {
 		b.blit(x * 8, y * 8, Art.sprites[tx][ty], false, false, 1.0f);
 	}
 	
-	
+	public AABB getAABB(Level l, int x, int y) {
+		return null;
+	}
 }

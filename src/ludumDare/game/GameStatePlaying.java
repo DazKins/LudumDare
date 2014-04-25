@@ -19,8 +19,8 @@ public class GameStatePlaying extends GameState {
 		l2 = new Level(64, 64);
 //		p2 = new Player(input, 50, 50);
 
-		l1.addEntity(new Player(input, 50, 50, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_D, KeyEvent.VK_A));
-		l2.addEntity(new Player(input, 50, 50, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT));
+		l1.addEntity(new Player(l1, input, 50, 50, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_D, KeyEvent.VK_A));
+		l2.addEntity(new Player(l2, input, 50, 50, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT));
 	}
 	
 	public void render(Bitmap b1, Bitmap b2) {

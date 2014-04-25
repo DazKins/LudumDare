@@ -1,8 +1,11 @@
 package ludumDare.game.entity;
 
+import ludumDare.game.level.Level;
 import ludumDare.gfx.Bitmap;
 
 public abstract class Entity {
+	protected Level level;
+	
 	protected float x;
 	protected float y;
 	protected float xa;
@@ -10,9 +13,10 @@ public abstract class Entity {
 	
 	protected int lifeTicks;
 	
-	public Entity(int x, int y) {
+	public Entity(Level l, int x, int y) {
 		this.x = x;
 		this.y = y;
+		level = l;
 	}
 	
 	public float getX() {

@@ -18,12 +18,21 @@ public class Level {
 		w = width;
 		h = height;
 		tiles = new int[w * h];
+		for (int x = 0; x < w; x++) {
+			for (int y = 0; y < h; y++) {
+				if (y > 15)
+					tiles[x + y * w] = 0;
+				else
+					tiles[x + y * w] = -1;
+			}
+		}
 	}
 	
 	public void render(Bitmap b) {
 		for (int x = 0; x < w; x++) {
 			for (int y = 0; y < h; y++) {
-				Tile.tiles[tiles[x + y * w]].render(b, this, x, y);
+				if (tiles[x + y * w] != -1)
+					Tile.tiles[tiles[x + y * w]].render(b, this, x, y);
 			}
 		}
 		for (int i = 0; i < entities.size(); i++) {
@@ -39,5 +48,13 @@ public class Level {
 	
 	public void addEntity(Entity e) {
 		entities.add(e);
+	}
+	
+	public Tile getTile(int x, int y) {
+		try {
+			return Tile.tiles[tiles[x + y * w]];
+		} catch (Exception e) {
+			return null;
+		}
 	}
 }
