@@ -43,10 +43,10 @@ public class Bitmap {
 			x0 = 0;
 		if (y0 < 0)
 			y0 = 0;
-		if (x1 > b.w)
-			x1 = b.w;
-		if (y1 > b.h)
-			y1 = b.h;
+		if (x1 > w)
+			x1 = w;
+		if (y1 > h)
+			y1 = h;
 		
 		for (int x = x0; x < x1; x++) {
 			for (int y = y0; y < y1; y++) {

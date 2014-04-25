@@ -1,7 +1,10 @@
-import gfx.Bitmap;
 package ludumDare;
 
+import ludumDare.game.GameState;
+import ludumDare.game.GameStatePlaying;
+import ludumDare.gfx.Art;
 import ludumDare.gfx.Bitmap;
+
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Dimension;
@@ -11,6 +14,7 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+
 import javax.swing.JFrame;
 
 public class MainComponent implements Runnable {
@@ -22,15 +26,15 @@ public class MainComponent implements Runnable {
 	private BufferedImage[] image = new BufferedImage[2];
 	private Bitmap[] bitmap = new Bitmap[2];
 
-	private Bitmap test = new Bitmap(10, 10);
-
 	public boolean running = false;
 
 	private boolean debugMode = true;
+	
+	private GameState gs;
 
 	public static void main(String args[]) {
+		Art.init();
 		new MainComponent().start();
-
 	}
 
 	private static Dimension screenSize(int i) {
@@ -49,6 +53,7 @@ public class MainComponent implements Runnable {
 	}
 
 	public MainComponent() {
+		gs = new GameStatePlaying();
 		for (int i = 0; i < 2; i++) {
 			canvas[i] = new Canvas();
 
@@ -115,7 +120,6 @@ public class MainComponent implements Runnable {
 		double limit = 60D;
 		long lastTime = System.nanoTime();
 		
-		double nsPerTick = 1000000000D / 60D;
 		double nsPerTick = 1000000000D/limit;
 
 		int frames = 0;
@@ -151,6 +155,7 @@ public class MainComponent implements Runnable {
 	}
 
 	public void render() {
+		gs.render(bitmap[0], bitmap[1]);
 		for (int i = 0; i < 2; i++) {
 			Canvas cCanvas = canvas[i];
 			BufferStrategy bs = cCanvas.getBufferStrategy();
@@ -159,8 +164,6 @@ public class MainComponent implements Runnable {
 				cCanvas.createBufferStrategy(3);
 				continue;
 			}
-
-			bitmap[0].blit(0, 0, test);
 
 			Graphics g = bs.getDrawGraphics();
 
