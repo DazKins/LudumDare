@@ -92,8 +92,9 @@ public class MainComponent implements Runnable {
 	}
 
 	public void run() {
+		double limit = 60D;
 		long lastTime = System.nanoTime();
-		double nsPerTick = 1000000000D/60D;
+		double nsPerTick = 1000000000D/limit;
 		
 		int frames = 0;
 		int ticks = 0;
