@@ -20,8 +20,8 @@ public class Player extends Mob {
 	}
 	
 	public void render(Bitmap b) {
-		b.blit((int)x, (int)y, Art.sprites[1 + (int) (lifeTicks /  20.0f) % 2][0], false, false, 0.5f);
-		b.blit((int)x, (int)y + 8, Art.sprites[1 + (int) (lifeTicks / 20.0f) % 2][1], false, false, 0.5f);
+		b.blit((int)x, (int)y, Art.sprites[1 + (int) (lifeTicks /  20.0f) % 2][0], false, false, 1.0f);
+		b.blit((int)x, (int)y + 8, Art.sprites[1 + (int) (lifeTicks / 20.0f) % 2][1], false, false, 1.0f);
 	}
 
 	public void tick() {
