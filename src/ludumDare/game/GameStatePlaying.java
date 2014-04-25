@@ -6,6 +6,7 @@ import ludumDare.MainComponent;
 import ludumDare.game.entity.mob.Player;
 import ludumDare.game.level.Level;
 import ludumDare.gfx.Bitmap;
+import ludumDare.gfx.Font;
 import ludumDare.input.InputHandler;
 
 public class GameStatePlaying extends GameState {
@@ -25,6 +26,8 @@ public class GameStatePlaying extends GameState {
 	public void render(Bitmap b1, Bitmap b2) {
 		l1.render(b1);
 		l2.render(b2);
+		
+		Font.renderString(b1, 0, 0, "test123//;;-+");
 	}
 
 	public void tick() {
