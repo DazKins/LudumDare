@@ -1,24 +1,31 @@
+import gfx.Bitmap;
+
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.DisplayMode;
+import java.awt.Graphics;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 
 public class MainComponent implements Runnable {
-
+	private static int SCALE = 3;
 	private static final String NAME = "Game";
+	
 	private Canvas[] canvas = new Canvas[2];
 	private JFrame[] frame = new JFrame[2];
+	private BufferedImage[] image = new BufferedImage[2];
+	private Bitmap[] bitmap = new Bitmap[2];
 
 	public boolean running = false;
 	
 	private boolean debugMode = true;
 
 	public static void main(String args[]) {
-		System.out.println("test");
 		new MainComponent().start();
 
 	}
@@ -35,7 +42,6 @@ public class MainComponent implements Runnable {
 		dim = new Dimension(width, height);
 
 		return dim;
-
 	}
 
 	public MainComponent() {
@@ -64,6 +70,13 @@ public class MainComponent implements Runnable {
 
 			frame[i].setResizable(false);
 			frame[i].setLocationRelativeTo(null);
+			
+			if (!debugMode)
+				image[i] = new BufferedImage(screenSize(i).width / SCALE, screenSize(i).height / SCALE, BufferedImage.TYPE_INT_RGB);
+			else
+				image[i] = new BufferedImage((int)(480.0f / SCALE), (int)(480.0f / SCALE), BufferedImage.TYPE_INT_RGB);
+			
+			bitmap[i] = new Bitmap(image[i]);
 
 			if (!debugMode) {
 				GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -110,12 +123,12 @@ public class MainComponent implements Runnable {
 				ticks++;
 				tick();
 				delta -= 1;
-				frames++;
-				render();
 			}
 			
+			frames++;
+			render();
 			
-			if (System.currentTimeMillis() - lastTimer >= 1000){
+			if (System.currentTimeMillis() - lastTimer >= 1000) {
 				lastTimer += 1000;
 				System.out.println("FPS: " + frames + ", UPS: " + ticks);
 				frames = 0;
@@ -129,6 +142,23 @@ public class MainComponent implements Runnable {
 	}
 
 	public void render() {
-
+		for (int i = 0; i < 2; i++) {
+			Canvas cCanvas = canvas[i];
+			BufferStrategy bs = cCanvas.getBufferStrategy();
+			
+			if (bs == null) {
+				cCanvas.createBufferStrategy(3);
+				continue;
+			}
+			
+			bitmap[i].randomize();
+			
+			Graphics g = bs.getDrawGraphics();
+			
+			g.drawImage(image[i], 0, 0, cCanvas.getWidth(), cCanvas.getHeight(), null);
+			
+			g.dispose();
+			bs.show();
+		}
 	}
 }
