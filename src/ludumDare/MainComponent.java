@@ -1,4 +1,6 @@
-import gfx.Bitmap;
+package ludumDare;
+
+import ludumDare.gfx.Bitmap;
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Dimension;
@@ -8,7 +10,6 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-
 import javax.swing.JFrame;
 
 public class MainComponent implements Runnable {
@@ -112,9 +113,8 @@ public class MainComponent implements Runnable {
 	public void run() {
 		double limit = 60D;
 		long lastTime = System.nanoTime();
-		double nsPerTick = 1000000000D/limit;
 		
-		double nsPerTick = 1000000000D / 60D;
+		double nsPerTick = 1000000000D/limit;
 
 		int frames = 0;
 		int ticks = 0;

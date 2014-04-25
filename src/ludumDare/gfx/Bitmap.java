@@ -1,4 +1,4 @@
-package gfx;
+package ludumDare.gfx;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
