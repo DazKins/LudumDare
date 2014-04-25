@@ -80,9 +80,11 @@ public class MainComponent implements Runnable {
 				canvas[i].setMaximumSize(d);
 				canvas[i].setPreferredSize(d);
 			} else {
-				canvas[i].setMinimumSize(new Dimension(635, 405));
-				canvas[i].setMaximumSize(new Dimension(635, 405));
-				canvas[i].setPreferredSize(new Dimension(635, 405));
+				int w = (d.width - 10) / 2;
+				int h = (int) (w * ((float) d.height / (float) d.width));
+				canvas[i].setMinimumSize(new Dimension(w, h));
+				canvas[i].setMaximumSize(new Dimension(w, h));
+				canvas[i].setPreferredSize(new Dimension(w, h));
 			}
 
 			frame[i] = new JFrame(NAME + ": Window " + (i + 1));
@@ -97,11 +99,8 @@ public class MainComponent implements Runnable {
 
 			frame[i].setResizable(true);
 			frame[i].setLocationRelativeTo(null);
-
-			//if (!debugMode)
-			//	image[i] = new BufferedImage(screenSize(i).width / SCALE, screenSize(i).height / SCALE, BufferedImage.TYPE_INT_RGB);
-			//else
-				image[i] = new BufferedImage((int) ((d.getWidth()/d.getHeight()*405.0f) / SCALE), (int) (405.0f / SCALE), BufferedImage.TYPE_INT_RGB);
+			
+			image[i] = new BufferedImage((int) ((d.getWidth()/d.getHeight()*405.0f) / SCALE), (int) (405.0f / SCALE), BufferedImage.TYPE_INT_RGB);
 
 			bitmap[i] = new Bitmap(image[i]);
 
@@ -112,10 +111,12 @@ public class MainComponent implements Runnable {
 					frame[i].setLocation(0, 0);
 				}
 			} else {
+				int w = (d.width - 10) / 2;
+				int h = (int) (w * ((float) d.height / (float) d.width));
 				if (i == 1) {
-					frame[i].setLocation(d.width / 2 + 5, d.height / 2 - 405 / 2);
+					frame[i].setLocation(d.width / 2 + 5, d.height / 2 - h / 2);
 				} else {
-					frame[i].setLocation(d.width / 2 - 5 - 635, d.height / 2 - 405 / 2);
+					frame[i].setLocation(d.width / 2 - 5 - w, d.height / 2 - h / 2);
 				}
 			}
 

@@ -8,4 +8,12 @@ public abstract class Mob extends Entity {
 	public Mob(int x, int y) {
 		super(x, y);
 	}
+	
+	protected void move(float xa, float ya) {
+		this.xa = xa;
+		this.ya = ya;
+		
+		x += xa;
+		y += ya;
+	}
 }

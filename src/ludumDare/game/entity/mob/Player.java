@@ -20,19 +20,24 @@ public class Player extends Mob {
 	}
 	
 	public void render(Bitmap b) {
-		b.blit(x, y, Art.sprites[1 + (int) (lifeTicks /  20.0f) % 2][0], false, false);
-		b.blit(x, y + 8, Art.sprites[1 + (int) (lifeTicks / 20.0f) % 2][1], false, false);
+		b.blit((int)x, (int)y, Art.sprites[1 + (int) (lifeTicks /  20.0f) % 2][0], false, false);
+		b.blit((int)x, (int)y + 8, Art.sprites[1 + (int) (lifeTicks / 20.0f) % 2][1], false, false);
 	}
 
 	public void tick() {
 		super.tick();
 		if (input.keys[rightKey]) 
-			x++;
+			xa = 1;
 		if (input.keys[leftKey])
-			x--;
+			xa = -1;
 		if (input.keys[downKey]) 
-			y++;
+			ya = 1;
 		if (input.keys[upKey])
-			y--;
+			ya = -1;
+		
+		xa *= 0.875;
+		ya *= 0.875;
+		
+		move(xa, ya);
 	}
 }

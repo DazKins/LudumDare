@@ -3,8 +3,10 @@ package ludumDare.game.entity;
 import ludumDare.gfx.Bitmap;
 
 public abstract class Entity {
-	protected int x;
-	protected int y;
+	protected float x;
+	protected float y;
+	protected float xa;
+	protected float ya;
 	
 	protected int lifeTicks;
 	
@@ -13,11 +15,11 @@ public abstract class Entity {
 		this.y = y;
 	}
 	
-	public int getX() {
+	public float getX() {
 		return x;
 	}
 	
-	public int getY() {
+	public float getY() {
 		return y;
 	}
 	
