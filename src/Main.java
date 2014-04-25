@@ -1,4 +1,3 @@
-package com.genericname.ldWorkingTitle;
 
 import java.awt.BorderLayout;
 import java.awt.Canvas;
@@ -6,7 +5,7 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
-public class Main extends Canvas implements Runnable {
+public class Main  implements Runnable {
 	private static final long serialVersionUID = 1L;
 	
 	public static int[] Width = new int[2];
@@ -17,31 +16,28 @@ public class Main extends Canvas implements Runnable {
 	public static final String NAME = "Game";
 	
 	private JFrame[] frame = new JFrame[2];
-	
+	private Canvas[] canvas = new Canvas[2];
 
 	public Main(){
-		setMinimumSize(new Dimension(totWidth, maxHeight));
-		setMaximumSize(new Dimension(totWidth, maxHeight));
-		setPreferredSize(new Dimension(totWidth, maxHeight));
-		
-		Main windowone = new Main();
-		Main windowtwo = new Main();
-		
-		for (int i = 0; i <2; i++){
+		for (int i = 0; i <2; i++) {
+			canvas[i] = new Canvas();
+			
+			setMinimumSize(new Dimension(totWidth, maxHeight));
+			setMaximumSize(new Dimension(totWidth, maxHeight));
+			setPreferredSize(new Dimension(totWidth, maxHeight));
+			
 			frame[i] = new JFrame(NAME + ": Window " + i);
 			
 			frame[i].setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame[i].setLayout(new BorderLayout());
 			
-			frame[i].add(this, BorderLayout.CENTER);
+			frame[i].add(canvas[i], BorderLayout.CENTER);
 			frame[i].pack();
 			
 			frame[i].setResizable(false);
 			frame[i].setLocationRelativeTo(null);
 			frame[i].setVisible(true);
 		}
-		
-		
 	}
 
 	public synchronized void start() {
@@ -68,6 +64,7 @@ public class Main extends Canvas implements Runnable {
 			Height[i] = Height[i]/SCALE;
 		}
 	}
+	
 	private static void fullSize(){
 		if (Height[0] <= Height[1]){
 			maxHeight = Height[1];
@@ -76,8 +73,8 @@ public class Main extends Canvas implements Runnable {
 		}
 		totWidth = Width[0] + Width[1];
 	}
+	
 	public void run() {
 
 	}
-
 }
