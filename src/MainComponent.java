@@ -3,11 +3,7 @@ import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
+import java.awt.GraphicsEnvironment
 import javax.swing.JFrame;
 
 public class MainComponent implements Runnable {
