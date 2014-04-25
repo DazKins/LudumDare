@@ -10,6 +10,7 @@ public class Tile {
 	
 	public static Tile rock = new RockTile(0);
 
+	private int id;
 	private int tx;
 	private int ty;
 	private boolean col;
@@ -18,6 +19,7 @@ public class Tile {
 		this.tx = tx;
 		this.ty = ty;
 		this.col = c;
+		this.id = id;
 		tiles[id] = this;
 	}
 	
@@ -27,5 +29,9 @@ public class Tile {
 	
 	public AABB getAABB(Level l, int x, int y) {
 		return null;
+	}
+	
+	public int getID() {
+		return id;
 	}
 }

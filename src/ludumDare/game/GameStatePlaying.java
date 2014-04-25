@@ -21,6 +21,8 @@ public class GameStatePlaying extends GameState {
 
 		l1.addEntity(new Player(l1, input, 50, 50, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_D, KeyEvent.VK_A));
 		l2.addEntity(new Player(l2, input, 50, 50, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT));
+		l1.registerSecondaryLevel(l2);
+		l2.registerSecondaryLevel(l1);
 	}
 	
 	public void render(Bitmap b1, Bitmap b2) {

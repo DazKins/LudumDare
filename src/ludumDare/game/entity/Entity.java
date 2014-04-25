@@ -2,6 +2,7 @@ package ludumDare.game.entity;
 
 import ludumDare.game.level.Level;
 import ludumDare.gfx.Bitmap;
+import ludumDare.math.AABB;
 
 public abstract class Entity {
 	protected Level level;
@@ -12,6 +13,10 @@ public abstract class Entity {
 	protected float ya;
 	
 	protected int lifeTicks;
+	
+	public AABB getAABB() {
+		return null;
+	}
 	
 	public Entity(Level l, int x, int y) {
 		this.x = x;

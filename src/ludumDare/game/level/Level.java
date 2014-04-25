@@ -14,10 +14,13 @@ public class Level {
 	private int w;
 	private int h;
 	
+	private Level pairedLevel;
+	
 	public Level(int width, int height) {
 		w = width;
 		h = height;
 		tiles = new int[w * h];
+		
 		for (int x = 0; x < w; x++) {
 			for (int y = 0; y < h; y++) {
 				if (y > 15)
@@ -26,6 +29,14 @@ public class Level {
 					tiles[x + y * w] = -1;
 			}
 		}
+		
+		tiles[8 + 13 * w] = 0;
+		tiles[8 + 14 * w] = 0;
+		tiles[8 + 15 * w] = 0;
+	}
+	
+	public void registerSecondaryLevel(Level l2) {
+		pairedLevel = l2;
 	}
 	
 	public void render(Bitmap b) {
@@ -50,11 +61,17 @@ public class Level {
 		entities.add(e);
 	}
 	
+	public void setTile(int x, int y, Tile t) {
+		tiles[x + y * w] = t.getID();
+	}
+	
 	public Tile getTile(int x, int y) {
-		try {
-			return Tile.tiles[tiles[x + y * w]];
-		} catch (Exception e) {
-			return null;
+		if (x >= 0 && y >= 0 && x < w && y < h) {
+			if(tiles[x + y * w] != -1)
+				return Tile.tiles[tiles[x + y * w]];
+			else
+				return null;
 		}
+		return null;
 	}
 }

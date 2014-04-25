@@ -45,8 +45,6 @@ public class Player extends Mob {
 		ya += 0.045;
 		xa *= 0.875;
 		
-		System.out.println(x);
-		
 		move(xa, ya);
 	}
 }

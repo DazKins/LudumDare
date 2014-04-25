@@ -21,8 +21,8 @@ public abstract class Mob extends Entity {
 		
 		int x0 = ((int)x >> 3) - 4;
 		int y0 = ((int)y >> 3) - 4;
-		int x1 = ((int)x >> 3) + 4;
-		int y1 = ((int)y >> 3) + 4;
+		int x1 = x0 + 9;
+		int y1 = y0 + 9;
 		
 		for (int x = x0; x < x1; x++) {
 			for (int y = y0; y < y1; y++) {
