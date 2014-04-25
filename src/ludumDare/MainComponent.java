@@ -20,7 +20,7 @@ import ludumDare.gfx.Bitmap;
 import ludumDare.input.InputHandler;
 
 public class MainComponent implements Runnable {
-	private static int SCALE = 3;
+	private static int SCALE = 2;
 	private static final String NAME = "Game";
 
 	private Canvas[] canvas = new Canvas[2];
@@ -92,9 +92,9 @@ public class MainComponent implements Runnable {
 				canvas[i].requestFocus();
 			}
 
-			if (!debugMode)
-				image[i] = new BufferedImage(screenSize(i).width / SCALE, screenSize(i).height / SCALE, BufferedImage.TYPE_INT_RGB);
-			else
+//			if (!debugMode)
+//				image[i] = new BufferedImage(screenSize(i).width / SCALE, screenSize(i).height / SCALE, BufferedImage.TYPE_INT_RGB);
+//			else
 				image[i] = new BufferedImage((int) (635.0f / SCALE), (int) (405.0f / SCALE), BufferedImage.TYPE_INT_RGB);
 
 			bitmap[i] = new Bitmap(image[i]);
@@ -107,9 +107,9 @@ public class MainComponent implements Runnable {
 				}
 			} else {
 				if (i == 1) {
-					frame[i].setLocation(635 + 10, 0);
+					frame[i].setLocation(d.width / 2 + 5, d.height / 2 - 405 / 2);
 				} else {
-					frame[i].setLocation(0, 0);
+					frame[i].setLocation(d.width / 2 - 5 - 635, d.height / 2 - 405 / 2);
 				}
 			}
 
