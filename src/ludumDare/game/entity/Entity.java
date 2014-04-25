@@ -6,6 +6,8 @@ public abstract class Entity {
 	protected int x;
 	protected int y;
 	
+	protected int lifeTicks;
+	
 	public Entity(int x, int y) {
 		this.x = x;
 		this.y = y;
@@ -21,5 +23,7 @@ public abstract class Entity {
 	
 	public abstract void render(Bitmap b);
 	
-	public abstract void tick();
+	public void tick() {
+		lifeTicks++;
+	}
 }
