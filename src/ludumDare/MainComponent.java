@@ -87,16 +87,16 @@ public class MainComponent implements Runnable {
 			frame[i].setResizable(true);
 			frame[i].setLocationRelativeTo(null);
 
-//			if (!debugMode)
-//				image[i] = new BufferedImage(screenSize(i).width / SCALE, screenSize(i).height / SCALE, BufferedImage.TYPE_INT_RGB);
-//			else
-				image[i] = new BufferedImage((int) (635.0f / SCALE), (int) (405.0f / SCALE), BufferedImage.TYPE_INT_RGB);
+			//if (!debugMode)
+			//	image[i] = new BufferedImage(screenSize(i).width / SCALE, screenSize(i).height / SCALE, BufferedImage.TYPE_INT_RGB);
+			//else
+				image[i] = new BufferedImage((int) ((d.getWidth()/d.getHeight()*405.0f) / SCALE), (int) (405.0f / SCALE), BufferedImage.TYPE_INT_RGB);
 
 			bitmap[i] = new Bitmap(image[i]);
 
 			if (!debugMode) {
 				if (i == 1) {
-					frame[i].setLocation((int) d.getWidth(), 0);
+					frame[i].setLocation((int) screenSize(i-1).getWidth(), 0);
 				} else {
 					frame[i].setLocation(0, 0);
 				}
