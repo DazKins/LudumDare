@@ -14,6 +14,8 @@ public class MainComponent implements Runnable {
 	private JFrame[] frame = new JFrame[2];
 
 	public boolean running = false;
+	
+	private boolean debugMode = true;
 
 	public static void main(String args[]) {
 		System.out.println("test");
@@ -21,7 +23,7 @@ public class MainComponent implements Runnable {
 
 	}
 
-	private static Dimension ScreenSize(int i) {
+	private static Dimension screenSize(int i) {
 		GraphicsDevice gd[] = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices();
 		int height;
 		int width;
@@ -39,13 +41,21 @@ public class MainComponent implements Runnable {
 	public MainComponent() {
 		for (int i = 0; i < 2; i++) {
 			canvas[i] = new Canvas();
-			canvas[i].setMinimumSize(ScreenSize(i));
-			canvas[i].setMaximumSize(ScreenSize(i));
-			canvas[i].setPreferredSize(ScreenSize(i));
+			
+			if (!debugMode) {
+				canvas[i].setMinimumSize(screenSize(i));
+				canvas[i].setMaximumSize(screenSize(i));
+				canvas[i].setPreferredSize(screenSize(i));
+			} else {
+				canvas[i].setMinimumSize(new Dimension(480, 270));
+				canvas[i].setMaximumSize(new Dimension(480, 270));
+				canvas[i].setPreferredSize(new Dimension(480, 270));
+			}
 
 			frame[i] = new JFrame(NAME + ": Window " + (i + 1));
 			// to close the frames, use Alt+F4
-			frame[i].setUndecorated(true);
+			if (!debugMode)
+				frame[i].setUndecorated(true);
 			frame[i].setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame[i].setLayout(new BorderLayout());
 
@@ -55,12 +65,19 @@ public class MainComponent implements Runnable {
 			frame[i].setResizable(false);
 			frame[i].setLocationRelativeTo(null);
 
-			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-			GraphicsDevice[] gs = ge.getScreenDevices();
-			gs[i].setFullScreenWindow(frame[i]);
-
+			if (!debugMode) {
+				GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+				GraphicsDevice[] gs = ge.getScreenDevices();
+				gs[i].setFullScreenWindow(frame[i]);
+			} else {
+				if (i == 1) {
+					frame[i].setLocation(480, 0);
+				} else {
+					frame[i].setLocation(0, 0);
+				}
+			}
+			
 			frame[i].setVisible(true);
-
 		}
 	}
 
@@ -88,7 +105,7 @@ public class MainComponent implements Runnable {
 			delta += (now - lastTime)/nsPerTick;
 			lastTime = now;
 			
-			while (delta >= 1){
+			while (delta >= 1) {
 				ticks++;
 				tick();
 				delta -= 1;
