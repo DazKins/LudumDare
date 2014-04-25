@@ -70,10 +70,11 @@ public class MainComponent implements Runnable {
 			canvas[i] = new Canvas();
 				
 			Dimension d = screenSize(i);
+			
 			if (debugMode)
-				d = screenSize(i);
-			else
 				d = screenSize(0);
+			else
+				d = screenSize(i);
 
 			if (!debugMode) {
 				canvas[i].setMinimumSize(d);
@@ -100,7 +101,7 @@ public class MainComponent implements Runnable {
 			frame[i].setResizable(true);
 			frame[i].setLocationRelativeTo(null);
 			
-			image[i] = new BufferedImage((int) ((d.getWidth()/d.getHeight()*405.0f) / SCALE), (int) (405.0f / SCALE), BufferedImage.TYPE_INT_RGB);
+			image[i] = new BufferedImage((int) ((d.getWidth() / d.getHeight() * 405.0f) / SCALE), (int) (405.0f / SCALE), BufferedImage.TYPE_INT_RGB);
 
 			bitmap[i] = new Bitmap(image[i]);
 
