@@ -6,13 +6,6 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import javax.swing.JFrame;
 
-public class MainComponent {
-	private JFrame j1;
-	private JFrame j2;
-	
-	
-import javax.swing.JFrame;
-
 public class MainComponent implements Runnable{
 	
 	private static final String NAME = "Game";
