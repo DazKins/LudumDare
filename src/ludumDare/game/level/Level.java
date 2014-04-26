@@ -16,6 +16,7 @@ import ludumDare.game.entity.Entity;
 import ludumDare.game.entity.EntitySwitch;
 import ludumDare.game.entity.Lever;
 import ludumDare.game.entity.PressurePlate;
+import ludumDare.game.entity.TimerButton;
 import ludumDare.game.entity.Trapdoor;
 import ludumDare.game.level.tile.Tile;
 import ludumDare.gfx.Bitmap;
@@ -117,13 +118,15 @@ public class Level {
 		for (int i = 0; i < rValue.length; i++) {
 			for (int x = 0; x < rValue[i].w; x++) {
 				for (int y = 0; y < rValue[i].h; y++) {
-					int bb, gg;
+					int bb, gg, rr;
 					if (i == 0) {
 						bb = pixels1[x + y * img1.getWidth()] & 0xFF;
 						gg = (pixels1[x + y * img1.getWidth()] >> 8) & 0xFF;
+						rr = (pixels1[x + y * img1.getWidth()] >> 16) & 0xFF;
 					} else {
 						bb = pixels2[x + y * img2.getWidth()] & 0xFF;
 						gg = (pixels2[x + y * img2.getWidth()] >> 8) & 0xFF;
+						rr = (pixels1[x + y * img1.getWidth()] >> 16) & 0xFF;
 					}
 					rValue[i].tiles[x + y * rValue[i].w] = -1;
 					if (bb == 255) {
@@ -142,6 +145,12 @@ public class Level {
 						rValue[i].addEntity(e);
 					} else if (bb == 75) {
 						EntitySwitch e = new Lever(x * 8, y * 8);
+						switchMap.put(gg, e);
+						if (!links.contains(gg))
+							links.add(gg);
+						rValue[i].addEntity(e);
+					} else if (bb == 125) {
+						EntitySwitch e = new TimerButton(x * 8, y * 8, rr);
 						switchMap.put(gg, e);
 						if (!links.contains(gg))
 							links.add(gg);
