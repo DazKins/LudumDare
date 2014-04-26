@@ -19,6 +19,7 @@ import ludumDare.game.entity.PressurePlate;
 import ludumDare.game.entity.TimerButton;
 import ludumDare.game.entity.Trapdoor;
 import ludumDare.game.level.tile.Tile;
+import ludumDare.gfx.Art;
 import ludumDare.gfx.Bitmap;
 
 public class Level {
@@ -45,6 +46,9 @@ public class Level {
 	}
 	
 	public void render(Bitmap b, float xOff, float yOff) {
+		for (int i = 0; i < w / 8 + 1; i++) {
+			b.blit((int) (i * 64 - xOff / 4), 0, Art.background, false, false, 1.0f);
+		}
 		for (int x = 0; x < w; x++) {
 			for (int y = 0; y < h; y++) {
 				if (tiles[x + y * w] != -1)

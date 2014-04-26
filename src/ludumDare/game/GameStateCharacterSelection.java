@@ -1,6 +1,7 @@
 package ludumDare.game;
 
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
 
 import ludumDare.MainComponent;
 import ludumDare.game.entity.mob.Player;
@@ -21,7 +22,8 @@ public class GameStateCharacterSelection extends GameState {
 	}
 
 	public void tick() {
-		
+		if (input.keyStream[KeyEvent.VK_ENTER])
+			mc.changegameState(new GameStatePlaying(mc, input, windowSizes));
 	}
 	
 }

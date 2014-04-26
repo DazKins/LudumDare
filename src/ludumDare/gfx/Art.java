@@ -6,9 +6,26 @@ import javax.imageio.ImageIO;
 
 public class Art {
 	public static Bitmap[][] sprites;
+	public static Bitmap background;
 	
 	public static void init() {
 		sprites = loadSpriteSheet("/sprite.png", 8, 8);
+		background = loadImage("/bg.png");
+	}
+	
+	public static Bitmap loadImage(String fileName) {
+		BufferedImage img = null;
+		
+		try {
+			img = ImageIO.read(Art.class.getResourceAsStream(fileName));
+		} catch (Exception e) {
+			throw new RuntimeException();
+		}
+		Bitmap rValue = new Bitmap(img.getWidth(), img.getHeight());
+		
+		img.getRGB(0, 0, img.getWidth(), img.getHeight(), rValue.pixels, 0, img.getWidth());
+		
+		return rValue;
 	}
 	
 	public static Bitmap[][] loadSpriteSheet(String fileName, int tw, int th) {
