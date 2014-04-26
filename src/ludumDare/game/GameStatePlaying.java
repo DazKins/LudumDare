@@ -19,10 +19,8 @@ public class GameStatePlaying extends GameState {
 	private Player p1;
 	private Player p2;
 	
-	private Dimension[] windowSizes;
-	
 	public GameStatePlaying(MainComponent m, InputHandler i, Dimension[] ws) {
-		super(m, i);
+		super(m, i, ws);
 		Level levels[] = Level.loadLevelsFromFile("/testLevel");
 		l1 = levels[0];
 		l2 = levels[1];

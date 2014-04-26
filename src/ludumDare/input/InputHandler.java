@@ -9,10 +9,17 @@ public class InputHandler implements KeyListener {
 	
 	private boolean isKeyUp[] = new boolean[65536];
 
+	public InputHandler() {
+		for (int i = 0; i < isKeyUp.length; i++) {
+			isKeyUp[i] = true;
+		}
+	}
+	
 	public void keyPressed(KeyEvent e) {
 		keys[e.getKeyCode()] = true;
-		if (isKeyUp[e.getKeyCode()])
+		if (isKeyUp[e.getKeyCode()]) {
 			keyStream[e.getKeyCode()] = true;
+		}
 		isKeyUp[e.getKeyCode()] = false;
 	}
 

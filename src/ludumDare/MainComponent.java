@@ -13,6 +13,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 
 import ludumDare.game.GameState;
+import ludumDare.game.GameStateMenu;
 import ludumDare.game.GameStatePlaying;
 import ludumDare.gfx.Art;
 import ludumDare.gfx.Bitmap;
@@ -129,7 +130,7 @@ public class MainComponent implements Runnable {
 		canvas[1].addKeyListener(input);
 		canvas[0].requestFocus();
 
-		gs = new GameStatePlaying(this, input, windowPixelSizes);
+		gs = new GameStateMenu(this, input, windowPixelSizes);
 	}
 
 	public synchronized void start() {
