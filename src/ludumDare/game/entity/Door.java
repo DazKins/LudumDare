@@ -1,5 +1,6 @@
 package ludumDare.game.entity;
 
+import ludumDare.audio.Audio;
 import ludumDare.game.entity.mob.Mob;
 import ludumDare.gfx.Art;
 import ludumDare.gfx.Bitmap;
@@ -7,13 +8,15 @@ import ludumDare.math.AABB;
 
 public class Door extends Entity implements ActivateableEntity {
 	private boolean open;
-	
+	Audio doorChange = new Audio("/door1.wav");
 	public Door(int x, int y) {
 		super(x, y);
 	}
 
 	public void onActivate(Entity e) {
 		open = !open;
+		doorChange.play();
+		
 	}
 	
 	public AABB getAABB() {

@@ -22,7 +22,7 @@ public class Audio {
 			clip.stop();
 			clip.setFramePosition(0);
 			clip.start();
-		} catch (Exception e) {
+			} catch (Exception e) {
 			System.out.println(e);
 		}
 	}
