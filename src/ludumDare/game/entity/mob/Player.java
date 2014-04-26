@@ -9,6 +9,8 @@ public class Player extends Mob {
 	private InputHandler input;
 	
 	private int jumpKey, leftKey, rightKey, interactKey;
+	
+	private int selectedChar;
 
 	public Player(InputHandler i, int x, int y, int u, int r, int l, int interactKey) {
 		super(x, y);
@@ -17,6 +19,10 @@ public class Player extends Mob {
 		leftKey = l;
 		rightKey = r;
 		this.interactKey = interactKey;
+	}
+	
+	public void setSelectedCharacter(int sc) {
+		selectedChar = sc;
 	}
 	
 	public AABB getAABB() {
@@ -31,8 +37,8 @@ public class Player extends Mob {
 		int frame = 0;
 		if (Math.abs(xa) >= 0.5)
 			frame = (int) (lifeTicks /  20.0f) % 2;
-		b.blit((int)(x - xOff), (int)(y - yOff), Art.sprites[1 - frame][0],  xa < 0 ? true : false, false, 1.0f);
-		b.blit((int)(x - xOff), (int)(y - yOff) + 8, Art.sprites[1 - frame][1],  false, false, 1.0f);
+		b.blit((int)(x - xOff), (int)(y - yOff), Art.sprites[(1 - frame) + selectedChar * 2][0],  xa < 0 ? true : false, false, 1.0f);
+		b.blit((int)(x - xOff), (int)(y - yOff) + 8, Art.sprites[(1 - frame) + selectedChar * 2][1],  false, false, 1.0f);
 	}
 
 	public void tick() {

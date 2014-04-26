@@ -41,7 +41,7 @@ public class GameStateMenu extends GameState {
 		
 		if (input.keyStream[KeyEvent.VK_ENTER]) {
 			if (selectedMenuOption == 0) {
-				mc.changegameState(new GameStatePlaying(mc, input, windowSizes));
+				mc.changegameState(new GameStateCharacterSelection(mc, input, windowSizes));
 			}
 			if (selectedMenuOption == 1) {
 				System.exit(0);
