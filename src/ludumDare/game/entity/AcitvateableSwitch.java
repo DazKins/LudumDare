@@ -5,8 +5,8 @@ import ludumDare.game.level.Level;
 import ludumDare.math.AABB;
 
 public class AcitvateableSwitch extends AOESwitch {
-	public AcitvateableSwitch(ActivateableEntity ae, AABB bb) {
-		super(ae, bb);
+	public AcitvateableSwitch(AABB bb) {
+		super(bb);
 	}
 	
 	public void onCollide(Entity e) {

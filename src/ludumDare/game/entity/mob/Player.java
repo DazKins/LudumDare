@@ -22,7 +22,7 @@ public class Player extends Mob {
 	}
 	
 	public AABB getAABB() {
-		return new AABB(x, y, x + 8, y + 16);
+		return new AABB(x, y, x + 7, y + 15);
 	}
 	
 	public boolean isInteracting() {

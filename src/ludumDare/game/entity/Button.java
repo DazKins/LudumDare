@@ -5,8 +5,8 @@ import ludumDare.gfx.Bitmap;
 import ludumDare.math.AABB;
 
 public class Button extends AOESwitch {
-	public Button(float x, float y, ActivateableEntity ae) {
-		super(ae, new AABB(x, y, x + 8, y + 2));
+	public Button(float x, float y) {
+		super(new AABB(x, y, x + 8, y + 2));
 		this.x = x;
 		this.y = y;
 	}

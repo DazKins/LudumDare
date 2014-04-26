@@ -1,13 +1,26 @@
 package ludumDare.game.level;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.imageio.ImageIO;
+
+import ludumDare.game.entity.ActivateableEntity;
+import ludumDare.game.entity.Button;
+import ludumDare.game.entity.Door;
 import ludumDare.game.entity.Entity;
+import ludumDare.game.entity.EntitySwitch;
+import ludumDare.game.entity.PressurePlate;
 import ludumDare.game.level.tile.Tile;
 import ludumDare.gfx.Bitmap;
 
 public class Level {
+	//25 and a bit tiles in view
+	
 	private List<Entity> entities = new ArrayList<Entity>();
 	private int[] tiles;
 	
@@ -16,19 +29,8 @@ public class Level {
 	
 	private Level pairedLevel;
 	
-	public Level(int width, int height) {
-		w = width;
-		h = height;
-		tiles = new int[w * h];
-		
-		for (int x = 0; x < w; x++) {
-			for (int y = 0; y < h; y++) {
-				if (y > 15)
-					tiles[x + y * w] = 0;
-				else
-					tiles[x + y * w] = -1;
-			}
-		}
+	public Level(String path) {
+		loadLevelFromFile(path);
 	}
 	
 	public void registerSecondaryLevel(Level l2) {
@@ -74,5 +76,57 @@ public class Level {
 				return null;
 		}
 		return null;
+	}
+	
+	public void loadLevelFromFile(String path) {
+		BufferedImage img = null;
+		
+		try {
+			img = ImageIO.read(Level.class.getResourceAsStream(path));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		w = img.getWidth();
+		h = img.getHeight();
+		tiles = new int[w * h];
+		
+		int pixels[] = img.getRGB(0, 0, w, h, null, 0, w);
+		
+		Map<Integer, ActivateableEntity> activateableMap = new HashMap<Integer, ActivateableEntity>();
+		Map<Integer, EntitySwitch> switchMap = new HashMap<Integer, EntitySwitch>();
+		List<Integer> links = new ArrayList<Integer>();
+		
+		for (int x = 0; x < img.getWidth(); x++) {
+			for (int y = 0; y < img.getHeight(); y++) {
+				int bb = pixels[x + y * img.getWidth()] & 0xFF;
+				int gg = (pixels[x + y * img.getWidth()] >> 8) & 0xFF;
+				tiles[x + y * w] = -1;
+				if (bb == 255) { 
+					tiles[x + y * w] = 0;
+				} else if (bb == 100) {
+					ActivateableEntity e = new Door(x * 8, y * 8);
+					activateableMap.put(gg, e);
+					if (!links.contains(gg))
+						links.add(gg);
+				} else if (bb == 150) {
+					EntitySwitch e = new Button(x * 8, y * 8);
+					switchMap.put(gg, e);
+					if (!links.contains(gg))
+						links.add(gg);
+				} else if (bb == 50) {
+					EntitySwitch e = new PressurePlate(x * 8, y * 8);
+					switchMap.put(gg, e);
+					if (!links.contains(gg))
+						links.add(gg);
+				}
+			}
+		}
+		
+		for (int i = 0; i < links.size(); i++) {
+			switchMap.get(links.get(i)).linkEntity(activateableMap.get(links.get(i)));
+			this.addEntity(switchMap.get(links.get(i)));
+			this.addEntity((Entity) activateableMap.get(links.get(i)));
+		}
 	}
 }

@@ -1,0 +1,5 @@
+BLUE COLOR
+255 = solid tile
+100 = door
+150 = button
+50 = pressurePlate
