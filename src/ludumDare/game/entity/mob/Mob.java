@@ -6,6 +6,8 @@ import ludumDare.math.AABB;
 
 public abstract class Mob extends Entity {
 	private int health;
+	public boolean isOnMovingPlatform;
+	public float nextFrameXA;
 	
 	public Mob(int x, int y) {
 		super(x, y);
@@ -42,6 +44,6 @@ public abstract class Mob extends Entity {
 			}
 		}
 		
-		super.move(xa, ya);
+		super.move(this.xa, this.ya);
 	}
 }

@@ -2,6 +2,7 @@ package ludumDare.game.entity;
 
 import java.util.List;
 
+import ludumDare.game.entity.mob.Player;
 import ludumDare.game.level.Level;
 import ludumDare.gfx.Bitmap;
 import ludumDare.math.AABB;
@@ -56,38 +57,56 @@ public abstract class Entity {
 	}
 	
 	protected void move(float xa, float ya) {
+		this.xa = xa;
+		this.ya = ya;
 		List<Entity> entities = level.getEntities();
 		for (int i = 0; i < entities.size(); i++) {
 			Entity e = entities.get(i);
 			if (e != this) {
 				if (e.getAABB() != null) {
 					if (!e.mayPass(this)) {
-						if (this.getAABB().shifted(xa, 0).intersects(e.getAABB())) {
+						boolean anyCol = false;
+						if (this.getAABB().shifted(this.xa, 0).intersects(e.getAABB())) {
 							this.xa = 0;
+							e.onXCollide(this);
+							this.onXCollide(e);
+							
+							anyCol = true;
 						}
-						if (this.getAABB().shifted(0, ya).intersects(e.getAABB())) {
-							if (y > 0)
-								isOnFloor = true;
+						if (this.getAABB().shifted(0, this.ya).intersects(e.getAABB())) {
+							if (y > 0) {
+								if (this.ya > 0)
+									isOnFloor = true;
+							}
 							this.ya = 0;
+							e.onYCollide(this);
+							this.onYCollide(e);
+							
+							anyCol = true;
+						}
+						if (anyCol) {
+							e.onCollide(this);
+							this.onCollide(e);
 						}
 					}
-					if (this.getAABB().shifted(xa, ya).intersects(e.getAABB())) {
+					if (this.getAABB().shifted(this.xa, this.ya).intersects(e.getAABB())) {
 						e.onCollide(this);
 						this.onCollide(e);
 					}
-					if (this.getAABB().shifted(0, ya).intersects(e.getAABB())) {
+					if (this.getAABB().shifted(0, this.ya).intersects(e.getAABB())) {
+						if (!e.mayPassY(this)) {
+							if (this.ya > 0)
+								isOnFloor = true;
+							this.ya = 0;
+						}
 						e.onYCollide(this);
 						this.onYCollide(e);
-						if (!e.mayPassY(this)) {
-							this.ya = 0;
-							isOnFloor = true;
-						}
 					}
-					if (this.getAABB().shifted(xa, 0).intersects(e.getAABB())) {
-						e.onXCollide(this);
-						this.onXCollide(e);
+					if (this.getAABB().shifted(this.xa, 0).intersects(e.getAABB())) {
 						if (!e.mayPassX(this))
 							this.xa = 0;
+						e.onXCollide(this);
+						this.onXCollide(e);
 					}
 				}
 			}

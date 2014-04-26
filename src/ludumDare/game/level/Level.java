@@ -21,6 +21,7 @@ import ludumDare.game.entity.PressurePlate;
 import ludumDare.game.entity.SpeedBlock;
 import ludumDare.game.entity.TimerButton;
 import ludumDare.game.entity.Trapdoor;
+import ludumDare.game.entity.XMovingPlatform;
 import ludumDare.game.entity.mob.Player;
 import ludumDare.game.level.tile.Tile;
 import ludumDare.gfx.Art;
@@ -183,6 +184,8 @@ public class Level {
 							e = new JumpBlock(x * 8, y * 8, rr / 10.0f);
 						} else if (bb == 103) {
 							e = new SpeedBlock(x * 8, y * 8, rr);
+						} else if (bb == 104) {
+							e = new XMovingPlatform(x * 8, y * 8, x * 8 + rr * 8);
 						}
 						if (activateableMap.containsKey(gg)) {
 							activateableMap.get(gg).add(e);

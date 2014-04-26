@@ -5,5 +5,8 @@ BLUE COLOR
 4 = timerbutton (r value indicates time)
 100 = Trapdoor
 101 = Door
+102 = Jump block (r value indicates jump height)
+103 = Speed block (r value indicates boost speed)
+104 = XMovingPlatform (r value indicates distance)
 200 = Moveable block
 
