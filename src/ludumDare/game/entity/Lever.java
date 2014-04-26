@@ -4,7 +4,7 @@ import ludumDare.gfx.Art;
 import ludumDare.gfx.Bitmap;
 import ludumDare.math.AABB;
 
-public class Lever extends AcitvateableSwitch{
+public class Lever extends AcitvateableSwitch {
 	public Lever(float x, float y) {
 		super(new AABB(x, y + 4, x + 8, y + 8));
 		this.x = x;
