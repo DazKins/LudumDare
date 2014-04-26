@@ -12,6 +12,6 @@ public class Button extends AOESwitch {
 	}
 	
 	public void render(Bitmap b, float xOff, float yOff) {
-		b.blit((int) (x - xOff), (int) (y - yOff), Art.sprites[activated ? 5 : 4][2], false, false, 1.0f);
+		b.blit((int) (x - xOff), (int) (y - yOff), Art.sprites[activated ? 5 : 4][2], false, false, 1.0f, 1.0f);
 	}
  }

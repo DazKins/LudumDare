@@ -47,7 +47,7 @@ public class Level {
 	
 	public void render(Bitmap b, float xOff, float yOff) {
 		for (int i = 0; i < w / 8 + 1; i++) {
-			b.blit((int) (i * 64 - xOff / 4), 0, Art.background, false, false, 1.0f);
+			b.blit((int) (i * 64 - xOff / 4), 0, Art.background, false, false, 1.0f, 1.0f);
 		}
 		for (int x = 0; x < w; x++) {
 			for (int y = 0; y < h; y++) {
@@ -116,7 +116,7 @@ public class Level {
 		int pixels2[] = img2.getRGB(0, 0, rValue[1].w, rValue[1].h, null, 0, rValue[1].w);
 		
 		Map<Integer, List<ActivateableEntity>> activateableMap = new HashMap<Integer, List<ActivateableEntity>>();
-		Map<Integer, EntitySwitch> switchMap = new HashMap<Integer, EntitySwitch>();
+		Map<Integer, List<EntitySwitch>> switchMap = new HashMap<Integer, List<EntitySwitch>>();
 		List<Integer> links = new ArrayList<Integer>();
 		
 		for (int i = 0; i < rValue.length; i++) {
@@ -135,52 +135,56 @@ public class Level {
 					rValue[i].tiles[x + y * rValue[i].w] = -1;
 					if (bb == 255) {
 						rValue[i].tiles[x + y * rValue[i].w] = 0;
-					} else if (bb == 150) {
-						EntitySwitch e = new Button(x * 8, y * 8);
-						switchMap.put(gg, e);
-						if (!links.contains(gg))
-							links.add(gg);
-						rValue[i].addEntity(e);
-					} else if (bb == 50) {
-						EntitySwitch e = new PressurePlate(x * 8, y * 8);
-						switchMap.put(gg, e);
-						if (!links.contains(gg))
-							links.add(gg);
-						rValue[i].addEntity(e);
-					} else if (bb == 75) {
-						EntitySwitch e = new Lever(x * 8, y * 8);
-						switchMap.put(gg, e);
-						if (!links.contains(gg))
-							links.add(gg);
-						rValue[i].addEntity(e);
-					} else if (bb == 125) {
-						EntitySwitch e = new TimerButton(x * 8, y * 8, rr);
-						switchMap.put(gg, e);
-						if (!links.contains(gg))
-							links.add(gg);
-						rValue[i].addEntity(e);
-					} else if (bb == 25) {
-						ActivateableEntity e = new Trapdoor(x * 8, y * 8);
-						if (activateableMap.containsKey(gg)) {
-							activateableMap.get(gg).add(e);
-						} else {
-							activateableMap.put(gg, new ArrayList<ActivateableEntity>());
-							activateableMap.get(gg).add(e);
+					} else if (bb < 100) {  
+						else if (bb == 0) {
+							EntitySwitch e = new Button(x * 8, y * 8);
+							switchMap.put(gg, e);
+							if (!links.contains(gg))
+								links.add(gg);
+							rValue[i].addEntity(e);
+						} else if (bb == 1) {
+							EntitySwitch e = new PressurePlate(x * 8, y * 8);
+							switchMap.put(gg, e);
+							if (!links.contains(gg))
+								links.add(gg);
+							rValue[i].addEntity(e);
+						} else if (bb == 2) {
+							EntitySwitch e = new Lever(x * 8, y * 8);
+							switchMap.put(gg, e);
+							if (!links.contains(gg))
+								links.add(gg);
+							rValue[i].addEntity(e);
+						} else if (bb == 3) {
+							EntitySwitch e = new TimerButton(x * 8, y * 8, rr);
+							switchMap.put(gg, e);
+							if (!links.contains(gg))
+								links.add(gg);
+							rValue[i].addEntity(e);
+						} 
+					} else {
+						else if (bb == 100) {
+							ActivateableEntity e = new Trapdoor(x * 8, y * 8);
+							if (activateableMap.containsKey(gg)) {
+								activateableMap.get(gg).add(e);
+							} else {
+								activateableMap.put(gg, new ArrayList<ActivateableEntity>());
+								activateableMap.get(gg).add(e);
+							}
+							if (!links.contains(gg))
+								links.add(gg);
+							rValue[i].addEntity((Entity) e);
+						} else if (bb == 101) {
+							ActivateableEntity e = new Door(x * 8, y * 8);
+							if (activateableMap.containsKey(gg)) {
+								activateableMap.get(gg).add(e);
+							} else {
+								activateableMap.put(gg, new ArrayList<ActivateableEntity>());
+								activateableMap.get(gg).add(e);
+							}
+							if (!links.contains(gg))
+								links.add(gg);
+							rValue[i].addEntity((Entity) e);
 						}
-						if (!links.contains(gg))
-							links.add(gg);
-						rValue[i].addEntity((Entity) e);
-					} else if (bb == 100) {
-						ActivateableEntity e = new Door(x * 8, y * 8);
-						if (activateableMap.containsKey(gg)) {
-							activateableMap.get(gg).add(e);
-						} else {
-							activateableMap.put(gg, new ArrayList<ActivateableEntity>());
-							activateableMap.get(gg).add(e);
-						}
-						if (!links.contains(gg))
-							links.add(gg);
-						rValue[i].addEntity((Entity) e);
 					}
 				}
 			}

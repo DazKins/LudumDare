@@ -28,7 +28,7 @@ public class TimerButton extends AcitvateableSwitch {
 	}
 	
 	public void render(Bitmap b, float xOff, float yOff) {
-		b.blit((int) (x - xOff), (int) (y - yOff), Art.sprites[7][activated ? 2 : 3], false, false, 1.0f);
+		b.blit((int) (x - xOff), (int) (y - yOff), Art.sprites[7][activated ? 2 : 3], false, false, 1.0f, 1.0f);
 	}
 	
 	public void tick() {

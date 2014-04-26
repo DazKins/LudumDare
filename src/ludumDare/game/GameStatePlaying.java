@@ -19,14 +19,14 @@ public class GameStatePlaying extends GameState {
 	private Player p1;
 	private Player p2;
 	
-	public GameStatePlaying(MainComponent m, InputHandler i, Dimension[] ws) {
+	public GameStatePlaying(MainComponent m, InputHandler i, Dimension[] ws, int cs) {
 		super(m, i, ws);
 		Level levels[] = Level.loadLevelsFromFile("/testLevel");
 		l1 = levels[0];
 		l2 = levels[1];
 
-		l1.addEntity(p1 = new Player(input, 50, 50, KeyEvent.VK_W, KeyEvent.VK_D, KeyEvent.VK_A, KeyEvent.VK_E));
-		l2.addEntity(p2 = new Player(input, 50, 50, KeyEvent.VK_UP, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_CONTROL));
+		l1.addEntity(p1 = new Player(cs, input, 50, 50, KeyEvent.VK_W, KeyEvent.VK_D, KeyEvent.VK_A, KeyEvent.VK_E));
+		l2.addEntity(p2 = new Player(cs, input, 50, 50, KeyEvent.VK_UP, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_CONTROL));
 		
 		l1.registerSecondaryLevel(l2);
 		l2.registerSecondaryLevel(l1);

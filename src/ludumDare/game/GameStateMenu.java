@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ludumDare.MainComponent;
+import ludumDare.gfx.Art;
 import ludumDare.gfx.Bitmap;
 import ludumDare.gfx.Font;
 import ludumDare.input.InputHandler;
@@ -23,11 +24,16 @@ public class GameStateMenu extends GameState {
 	}
 
 	public void render(Bitmap b1, Bitmap b2) {
+		for (int i = 0; i < 8; i++) {
+			b1.blit(i * 64, 0, Art.background, false, false, 1.0f, 1.0f);
+			b2.blit(i * 64, 0, Art.background, false, false, 1.0f, 1.0f);
+		}
+		
 		for (int i = 0; i < menuOptions.size(); i++) {
 			String msg = menuOptions.get(i);
-			Font.renderString(b1, (int) windowSizes[0].getWidth() / 2 - msg.length() * 4, i * 16 + 64, msg, 0xFF0000);
 			if (i == selectedMenuOption)
 				Font.renderString(b1, (int) windowSizes[0].getWidth() / 2 - msg.length() * 4 + 4, i * 16 + 68, msg, 0x410000);
+			Font.renderString(b1, (int) windowSizes[0].getWidth() / 2 - msg.length() * 4, i * 16 + 64, msg, 0xFF0000);
 		}
 	}
 

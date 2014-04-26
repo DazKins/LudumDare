@@ -43,7 +43,7 @@ public class Bitmap {
 		}
 	}
 	
-	public void blit(int xp, int yp, Bitmap b, boolean xFlip, boolean yFlip, float alpha, int oldCol, int newCol) {
+	public void blit(int xp, int yp, Bitmap b, boolean xFlip, boolean yFlip, float alpha, float scale, int oldCol, int newCol) {
 		int x0 = xp;
 		int y0 = yp;
 		int x1 = xp + b.w;
@@ -81,11 +81,11 @@ public class Bitmap {
 		}
 	}
 	
-	public void blit(int xp, int yp, Bitmap b, boolean xFlip, boolean yFlip, float alpha) {
+	public void blit(int xp, int yp, Bitmap b, boolean xFlip, boolean yFlip, float alpha, float scale) {
 		int x0 = xp;
 		int y0 = yp;
-		int x1 = xp + b.w;
-		int y1 = yp + b.h;
+		int x1 = (int) (xp + b.w * scale);
+		int y1 = (int) (yp + b.h * scale);
 		
 		if (x0 < 0)
 			x0 = 0;
@@ -98,10 +98,12 @@ public class Bitmap {
 		
 		for (int x = x0; x < x1; x++) {
 			int xc = x - xp;
+			xc /= scale;
 			if (xFlip)
 				xc = b.w - xc - 1;
 			for (int y = y0; y < y1; y++) {
 				int yc = y - yp;
+				yc /= scale;
 				if (yFlip)
 					yc = b.h - yc - 1;
 				int nPixel = b.getPixel(xc, yc);

@@ -29,7 +29,7 @@ public class Trapdoor extends Entity implements ActivateableEntity {
 	}
 
 	public void render(Bitmap b, float xOff, float yOff) {
-		b.blit((int) (x - xOff), (int) (y - yOff), Art.sprites[open ? 1 : 0][3], false, false, 1.0f);
+		b.blit((int) (x - xOff), (int) (y - yOff), Art.sprites[open ? 1 : 0][3], false, false, 1.0f, 1.0f);
 	}
 	
 }

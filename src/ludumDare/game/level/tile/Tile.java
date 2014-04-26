@@ -54,7 +54,7 @@ public class Tile {
 		}
 		this.tx = bm;
 
-		b.blit((int) (x * 8 - xOff), (int) (y * 8 - yOff), Art.sprites[tx][ty], false, false, 1.0f);
+		b.blit((int) (x * 8 - xOff), (int) (y * 8 - yOff), Art.sprites[tx][ty], false, false, 1.0f, 1.0f);
 	}
 
 	public AABB getAABB(Level l, int x, int y) {
