@@ -132,11 +132,11 @@ public class Level {
 						rValue[i].addEntity(e);
 					} else if (bb == 50) {
 						EntitySwitch e = new PressurePlate(x * 8, y * 8);
-						System.out.println("hit");
 						switchMap.put(gg, e);
 						if (!links.contains(gg))
 							links.add(gg);
 						rValue[i].addEntity(e);
+					} else {
 					}
 				}
 			}
