@@ -174,6 +174,7 @@ public class MainComponent implements Runnable {
 
 	public void tick() {
 		gs.tick();
+		input.tick();
 	}
 
 	public void render() {

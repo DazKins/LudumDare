@@ -58,7 +58,12 @@ public class Level {
 	}
 	
 	public void addEntity(Entity e) {
+		e.registerLevel(this);
 		entities.add(e);
+	}
+	
+	public List<Entity> getEntities() {
+		return entities;
 	}
 	
 	public void setTile(int x, int y, Tile t) {

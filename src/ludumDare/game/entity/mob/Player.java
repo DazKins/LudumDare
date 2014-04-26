@@ -1,5 +1,7 @@
 package ludumDare.game.entity.mob;
 
+import java.awt.event.KeyEvent;
+
 import ludumDare.game.level.Level;
 import ludumDare.gfx.Art;
 import ludumDare.gfx.Bitmap;
@@ -11,8 +13,8 @@ public class Player extends Mob {
 	
 	private int jumpKey, leftKey, rightKey;
 
-	public Player(Level le, InputHandler i, int x, int y, int u, int d, int r, int l) {
-		super(le, x, y);
+	public Player(InputHandler i, int x, int y, int u, int d, int r, int l) {
+		super(x, y);
 		input = i;
 		jumpKey = u;
 		leftKey = l;
@@ -21,6 +23,10 @@ public class Player extends Mob {
 	
 	public AABB getAABB() {
 		return new AABB(x, y, x + 8, y + 16);
+	}
+	
+	public boolean isInteracting() {
+		return input.keyStream[KeyEvent.VK_E];
 	}
 	
 	public void render(Bitmap b) {

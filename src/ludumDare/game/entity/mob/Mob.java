@@ -1,5 +1,7 @@
 package ludumDare.game.entity.mob;
 
+import java.util.List;
+
 import ludumDare.game.entity.Entity;
 import ludumDare.game.level.Level;
 import ludumDare.math.AABB;
@@ -7,8 +9,8 @@ import ludumDare.math.AABB;
 public abstract class Mob extends Entity {
 	private int health;
 	
-	public Mob(Level l, int x, int y) {
-		super(l, x, y);
+	public Mob(int x, int y) {
+		super(x, y);
 	}
 	
 	public AABB getAABB() {
@@ -39,7 +41,6 @@ public abstract class Mob extends Entity {
 			}
 		}
 		
-		x += this.xa;
-		y += this.ya;
+		super.move(xa, ya);
 	}
 }

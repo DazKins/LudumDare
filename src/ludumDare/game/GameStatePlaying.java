@@ -3,11 +3,15 @@ package ludumDare.game;
 import java.awt.event.KeyEvent;
 
 import ludumDare.MainComponent;
+import ludumDare.game.entity.AcitvateableSwitch;
+import ludumDare.game.entity.ActivateableEntity;
+import ludumDare.game.entity.Entity;
 import ludumDare.game.entity.mob.Player;
 import ludumDare.game.level.Level;
 import ludumDare.gfx.Bitmap;
 import ludumDare.gfx.Font;
 import ludumDare.input.InputHandler;
+import ludumDare.math.AABB;
 
 public class GameStatePlaying extends GameState {
 	private Level l1;
@@ -19,8 +23,13 @@ public class GameStatePlaying extends GameState {
 		l2 = new Level(64, 64);
 //		p2 = new Player(input, 50, 50);
 
-		l1.addEntity(new Player(l1, input, 50, 50, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_D, KeyEvent.VK_A));
-		l2.addEntity(new Player(l2, input, 50, 50, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT));
+		l1.addEntity(new Player(input, 50, 50, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_D, KeyEvent.VK_A));
+		l1.addEntity(new AcitvateableSwitch(new ActivateableEntity() {
+			public void onActivate(Entity e) {
+				System.out.println("interaction from " + e);
+			}
+		}, new AABB(0, 0, 32, 250)));
+		l2.addEntity(new Player(input, 50, 50, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT));
 		l1.registerSecondaryLevel(l2);
 		l2.registerSecondaryLevel(l1);
 	}

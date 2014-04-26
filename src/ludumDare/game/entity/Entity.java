@@ -1,5 +1,7 @@
 package ludumDare.game.entity;
 
+import java.util.List;
+
 import ludumDare.game.level.Level;
 import ludumDare.gfx.Bitmap;
 import ludumDare.math.AABB;
@@ -18,10 +20,30 @@ public abstract class Entity {
 		return null;
 	}
 	
-	public Entity(Level l, int x, int y) {
+	public Entity(int x, int y) {
 		this.x = x;
 		this.y = y;
+	}
+	
+	public void registerLevel(Level l) {
 		level = l;
+	}
+	
+	protected void move(float xa, float ya) {
+		List<Entity> entities = level.getEntities();
+		for (int i = 0; i < entities.size(); i++) {
+			Entity e = entities.get(i);
+			if (e != this) {
+				if (e.getAABB() != null) {
+					if (this.getAABB().shifted(xa, ya).intersects(e.getAABB())) {
+						e.onCollide(this);
+					}
+				}
+			}
+		}
+		
+		x += this.xa;
+		y += this.ya;
 	}
 	
 	public float getX() {
@@ -37,4 +59,6 @@ public abstract class Entity {
 	public void tick() {
 		lifeTicks++;
 	}
+	
+	public void onCollide(Entity e){}
 }
