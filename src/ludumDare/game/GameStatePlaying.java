@@ -16,19 +16,14 @@ public class GameStatePlaying extends GameState {
 	private Level l1;
 	private Level l2;
 	
-	private Door testDoor;
-	
 	public GameStatePlaying(MainComponent m, InputHandler i) {
 		super(m, i);
-		l1 = new Level(64, 64);
-		l2 = new Level(64, 64);
-		
-		testDoor = new Door(48, 112);
-		l2.addEntity(testDoor);
+		l1 = new Level("/testLevel.png");
+		l2 = new Level("/testLevel.png");
 
 		l1.addEntity(new Player(input, 50, 50, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_D, KeyEvent.VK_A));
-		l1.addEntity(new PressurePlate(0, 120, testDoor));
 		l2.addEntity(new Player(input, 50, 50, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT));
+		
 		l1.registerSecondaryLevel(l2);
 		l2.registerSecondaryLevel(l1);
 	}

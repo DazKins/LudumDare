@@ -7,8 +7,8 @@ import ludumDare.math.AABB;
 public class PressurePlate extends AOESwitch {
 	private int ticksSinceLastActivate;
 	
-	public PressurePlate(float x, float y, ActivateableEntity ae) {
-		super(ae, new AABB(x, y, x + 8, y + 2));
+	public PressurePlate(float x, float y) {
+		super(new AABB(x, y, x + 8, y + 2));
 		this.x = x;
 		this.y = y;
 	}

@@ -7,8 +7,8 @@ import ludumDare.math.AABB;
 public class AOESwitch extends EntitySwitch {
 	private AABB aabb;
 	
-	public AOESwitch(ActivateableEntity ae, AABB bb) {
-		super(0, 0, ae);
+	public AOESwitch(AABB bb) {
+		super(0, 0);
 		aabb = bb;
 	}
 	

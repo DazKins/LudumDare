@@ -11,8 +11,11 @@ public abstract class EntitySwitch extends Entity {
 	private long lastPulse;
 	protected boolean activated;
 	
-	public EntitySwitch(int x, int y, ActivateableEntity ae) {
+	public EntitySwitch(int x, int y) {
 		super(x, y);
+	}
+	
+	public void linkEntity(ActivateableEntity ae) {
 		linkedEntity = ae;
 	}
 	
