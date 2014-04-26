@@ -67,7 +67,7 @@ public class Player extends Mob {
 			JumpBlock jb = (JumpBlock) e;
 			if (jb.enabled){
 				ya = -jb.boostHeight;
-				jumpBoost.play();
+				jumpBoost.play(true);
 			}
 		}
 		if (e instanceof SpeedBlock) {
@@ -96,6 +96,8 @@ public class Player extends Mob {
 			if (isOnFloor) {
 				ya -= 2;
 				jumpNormal.play();
+				ya = -2;
+				jumpNormal.play(true);
 			}
 		}
 

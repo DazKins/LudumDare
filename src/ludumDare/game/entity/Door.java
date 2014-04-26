@@ -15,7 +15,7 @@ public class Door extends Entity implements ActivateableEntity {
 
 	public void onActivate(Entity e) {
 		open = !open;
-		doorChange.play();
+		doorChange.play(true);
 		
 	}
 	

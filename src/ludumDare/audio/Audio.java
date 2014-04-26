@@ -6,7 +6,7 @@ import javax.sound.sampled.Clip;
 
 public class Audio {
 	private Clip clip;
-	
+
 	public Audio(String path) {
 		try {
 			AudioInputStream ais = AudioSystem.getAudioInputStream(Audio.class.getResourceAsStream(path));
@@ -16,14 +16,45 @@ public class Audio {
 			e.printStackTrace();
 		}
 	}
-	
-	public void play() {
+
+	public void play(final boolean start) {
 		try {
-			clip.stop();
-			clip.setFramePosition(0);
-			clip.start();
-			} catch (Exception e) {
+			new Thread() {
+				public void run() {
+				if(start){					
+					clip.stop();
+					clip.setFramePosition(0);
+					clip.start();
+				}else{
+					clip.stop();
+				}
+				}
+			}.run();
+		} catch (Exception e) {
 			System.out.println(e);
 		}
+
+	}
+
+	public void loopPlay(final boolean start) {
+		try {
+			new Thread() {
+				public void run() {
+					if (start == true) {
+						clip.stop();
+						clip.setFramePosition(0);
+						clip.loop(Clip.LOOP_CONTINUOUSLY);
+					}
+					clip.stop();
+				}
+			}.run();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+	}
+	
+	public void stopPlay(){
+		clip.stop();
 	}
 }
