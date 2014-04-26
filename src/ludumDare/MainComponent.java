@@ -31,7 +31,7 @@ public class MainComponent implements Runnable {
 
 	public boolean running = false;
 
-	private boolean debugMode = true;
+	private boolean debugMode = false;
 	
 	private GameState gs;
 	

@@ -7,10 +7,14 @@ import javax.imageio.ImageIO;
 public class Art {
 	public static Bitmap[][] sprites;
 	public static Bitmap background;
+	public static Bitmap background1;
+	public static Bitmap background2;
 	
 	public static void init() {
 		sprites = loadSpriteSheet("/sprite.png", 8, 8);
 		background = loadImage("/bg.png");
+		background1 = loadImage("/bg1.png");
+		background2 = loadImage("/bg2.png");
 	}
 	
 	public static Bitmap loadImage(String fileName) {

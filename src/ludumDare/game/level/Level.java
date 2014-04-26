@@ -51,7 +51,8 @@ public class Level {
 	
 	public void render(Bitmap b, float xOff, float yOff) {
 		for (int i = 0; i < w / 4 + 1; i++) {
-			b.blit((int) (i * 128 - xOff / 4), 0, Art.background, false, false, 1.0f, 1.0f);
+			b.blit((int) (i * 128 - xOff / 4), 0, Art.background1, false, false, 1.0f, 1.0f);
+			b.blit((int) (i * 128 - xOff / 2), 0, Art.background2, false, false, 1.0f, 1.0f);
 		}
 		for (int x = 0; x < w; x++) {
 			for (int y = 0; y < h; y++) {
