@@ -24,7 +24,7 @@ public class Tile {
 		tiles[id] = this;
 	}
 
-	public void render(Bitmap b, Level l, int x, int y) {
+	public void render(Bitmap b, Level l, int x, int y, float xOff, float yOff) {
 		Tile tu = l.getTile(x, y - 1);
 		Tile tr = l.getTile(x + 1, y);
 		Tile td = l.getTile(x, y + 1);
@@ -54,7 +54,7 @@ public class Tile {
 		}
 		this.tx = bm;
 
-		b.blit(x * 8, y * 8, Art.sprites[tx][ty], false, false, 1.0f);
+		b.blit((int) (x * 8 - xOff), (int) (y * 8 - yOff), Art.sprites[tx][ty], false, false, 1.0f);
 	}
 
 	public AABB getAABB(Level l, int x, int y) {

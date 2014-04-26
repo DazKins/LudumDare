@@ -62,7 +62,7 @@ public abstract class Entity {
 		return y;
 	}
 	
-	public abstract void render(Bitmap b);
+	public abstract void render(Bitmap b, float xOff, float yOff);
 	
 	public void tick() {
 		lifeTicks++;

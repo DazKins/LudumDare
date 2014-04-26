@@ -24,7 +24,7 @@ public class AOESwitch extends EntitySwitch {
 		super.onActivate(e);
 	}
 
-	public void render(Bitmap b) {
+	public void render(Bitmap b, float xOff, float yOff) {
 		
 	}
 }

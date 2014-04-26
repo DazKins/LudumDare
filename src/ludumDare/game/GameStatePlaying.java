@@ -1,5 +1,6 @@
 package ludumDare.game;
 
+import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 
 import ludumDare.MainComponent;
@@ -16,22 +17,33 @@ public class GameStatePlaying extends GameState {
 	private Level l1;
 	private Level l2;
 	
-	public GameStatePlaying(MainComponent m, InputHandler i) {
+	private float xOff1;
+	
+	private float xOff2;
+	
+	private Player p1;
+	private Player p2;
+	
+	private Dimension[] windowSizes;
+	
+	public GameStatePlaying(MainComponent m, InputHandler i, Dimension[] ws) {
 		super(m, i);
 		Level levels[] = Level.loadLevelsFromFile("/testLevel");
 		l1 = levels[0];
 		l2 = levels[1];
 
-		l1.addEntity(new Player(input, 50, 50, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_D, KeyEvent.VK_A));
-		l2.addEntity(new Player(input, 50, 50, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT));
+		l1.addEntity(p1 = new Player(input, 50, 50, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_D, KeyEvent.VK_A));
+		l2.addEntity(p2 = new Player(input, 50, 50, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT));
 		
 		l1.registerSecondaryLevel(l2);
 		l2.registerSecondaryLevel(l1);
+		
+		windowSizes = ws;
 	}
 	
 	public void render(Bitmap b1, Bitmap b2) {
-		l1.render(b1);
-		l2.render(b2);
+		l1.render(b1, xOff1, 0);
+		l2.render(b2, xOff2, 0);
 		
 		Font.renderString(b1, 0, 0, "test123//;;-+");
 	}
@@ -39,5 +51,9 @@ public class GameStatePlaying extends GameState {
 	public void tick() {
 		l1.tick();
 		l2.tick();
+		
+		xOff1 = (float) (p1.getX() - windowSizes[1].getWidth() / 4);
+		
+		xOff2 = (float) (p2.getX() - windowSizes[1].getWidth() / 4);
 	}
 }

@@ -28,9 +28,9 @@ public class Door extends Entity implements ActivateableEntity {
 		return true;
 	}
  
-	public void render(Bitmap b) {
+	public void render(Bitmap b, float xOff, float yOff) {
 		int state = open ? 3 : 2;
-		b.blit((int) x, (int) y, Art.sprites[state][2], false, false, 1.0f);
-		b.blit((int) x, (int) y + 8, Art.sprites[state][3], false, false, 1.0f);
+		b.blit((int) (x - xOff), (int) (y - yOff), Art.sprites[state][2], false, false, 1.0f);
+		b.blit((int) (x - xOff), (int) (y - yOff) + 8, Art.sprites[state][3], false, false, 1.0f);
 	}
 }

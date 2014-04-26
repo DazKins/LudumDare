@@ -33,15 +33,15 @@ public class Level {
 		pairedLevel = l2;
 	}
 	
-	public void render(Bitmap b) {
+	public void render(Bitmap b, float xOff, float yOff) {
 		for (int x = 0; x < w; x++) {
 			for (int y = 0; y < h; y++) {
 				if (tiles[x + y * w] != -1)
-					Tile.tiles[tiles[x + y * w]].render(b, this, x, y);
+					Tile.tiles[tiles[x + y * w]].render(b, this, x, y, xOff, yOff);
 			}
 		}
 		for (int i = 0; i < entities.size(); i++) {
-			entities.get(i).render(b);
+			entities.get(i).render(b, xOff, yOff);
 		}
 	}
 	

@@ -18,8 +18,8 @@ public class PressurePlate extends AOESwitch {
 		ticksSinceLastActivate = lifeTicks;
 	}
 	
-	public void render(Bitmap b) {
-		b.blit((int) x, (int) y, Art.sprites[activated ? 5 : 4][3], false, false, 1.0f);
+	public void render(Bitmap b, float xOff, float yOff) {
+		b.blit((int) (x - xOff), (int) (y - yOff), Art.sprites[activated ? 5 : 4][3], false, false, 1.0f);
 	}
 	
 	public void tick() {

@@ -29,12 +29,12 @@ public class Player extends Mob {
 		return input.keyStream[KeyEvent.VK_E];
 	}
 	
-	public void render(Bitmap b) {
+	public void render(Bitmap b, float xOff, float yOff) {
 		int frame = 0;
 		if (Math.abs(xa) >= 0.5)
 			frame = (int) (lifeTicks /  20.0f) % 2;
-		b.blit((int)x, (int)y, Art.sprites[2 - frame][0],  xa < 0 ? true : false, false, 1.0f);
-		b.blit((int)x, (int)y + 8, Art.sprites[2 - frame][1],  false, false, 1.0f);
+		b.blit((int)(x - xOff), (int)(y - yOff), Art.sprites[2 - frame][0],  xa < 0 ? true : false, false, 1.0f);
+		b.blit((int)(x - xOff), (int)(y - yOff) + 8, Art.sprites[2 - frame][1],  false, false, 1.0f);
 	}
 
 	public void tick() {

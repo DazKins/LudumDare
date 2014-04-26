@@ -26,6 +26,8 @@ public class MainComponent implements Runnable {
 	private JFrame[] frame = new JFrame[2];
 	private BufferedImage[] image = new BufferedImage[2];
 	private Bitmap[] bitmap = new Bitmap[2];
+	
+	private Dimension windowPixelSizes[] = new Dimension[2];
 
 	public boolean running = false;
 
@@ -65,7 +67,6 @@ public class MainComponent implements Runnable {
 //		else
 //			debugMode = true;
 		input = new InputHandler();
-		gs = new GameStatePlaying(this, input);
 		for (int i = 0; i < 2; i++) {
 			canvas[i] = new Canvas();
 				
@@ -80,9 +81,11 @@ public class MainComponent implements Runnable {
 				canvas[i].setMinimumSize(d);
 				canvas[i].setMaximumSize(d);
 				canvas[i].setPreferredSize(d);
+				windowPixelSizes[i] = new Dimension((int) (d.getWidth() / SCALE), (int) (d.getHeight() / SCALE));
 			} else {
 				int w = (d.width - 10) / 2;
 				int h = (int) (w * ((float) d.height / (float) d.width));
+				windowPixelSizes[i] = new Dimension(w / SCALE, h / SCALE);
 				canvas[i].setMinimumSize(new Dimension(w, h));
 				canvas[i].setMaximumSize(new Dimension(w, h));
 				canvas[i].setPreferredSize(new Dimension(w, h));
@@ -126,6 +129,8 @@ public class MainComponent implements Runnable {
 		canvas[0].addKeyListener(input);
 		canvas[1].addKeyListener(input);
 		canvas[0].requestFocus();
+
+		gs = new GameStatePlaying(this, input, windowPixelSizes);
 	}
 
 	public synchronized void start() {
