@@ -135,56 +135,43 @@ public class Level {
 					rValue[i].tiles[x + y * rValue[i].w] = -1;
 					if (bb == 255) {
 						rValue[i].tiles[x + y * rValue[i].w] = 0;
-					} else if (bb < 100) {  
-						else if (bb == 0) {
-							EntitySwitch e = new Button(x * 8, y * 8);
-							switchMap.put(gg, e);
-							if (!links.contains(gg))
-								links.add(gg);
-							rValue[i].addEntity(e);
-						} else if (bb == 1) {
-							EntitySwitch e = new PressurePlate(x * 8, y * 8);
-							switchMap.put(gg, e);
-							if (!links.contains(gg))
-								links.add(gg);
-							rValue[i].addEntity(e);
+					} else if (bb == 0) {}
+					else if (bb < 100) {
+						EntitySwitch e = null;
+						if (bb == 1) {
+							e = new Button(x * 8, y * 8);
 						} else if (bb == 2) {
-							EntitySwitch e = new Lever(x * 8, y * 8);
-							switchMap.put(gg, e);
-							if (!links.contains(gg))
-								links.add(gg);
-							rValue[i].addEntity(e);
+							e = new PressurePlate(x * 8, y * 8);
 						} else if (bb == 3) {
-							EntitySwitch e = new TimerButton(x * 8, y * 8, rr);
-							switchMap.put(gg, e);
-							if (!links.contains(gg))
-								links.add(gg);
-							rValue[i].addEntity(e);
-						} 
-					} else {
-						else if (bb == 100) {
-							ActivateableEntity e = new Trapdoor(x * 8, y * 8);
-							if (activateableMap.containsKey(gg)) {
-								activateableMap.get(gg).add(e);
-							} else {
-								activateableMap.put(gg, new ArrayList<ActivateableEntity>());
-								activateableMap.get(gg).add(e);
-							}
-							if (!links.contains(gg))
-								links.add(gg);
-							rValue[i].addEntity((Entity) e);
-						} else if (bb == 101) {
-							ActivateableEntity e = new Door(x * 8, y * 8);
-							if (activateableMap.containsKey(gg)) {
-								activateableMap.get(gg).add(e);
-							} else {
-								activateableMap.put(gg, new ArrayList<ActivateableEntity>());
-								activateableMap.get(gg).add(e);
-							}
-							if (!links.contains(gg))
-								links.add(gg);
-							rValue[i].addEntity((Entity) e);
+							e = new Lever(x * 8, y * 8);
+						} else if (bb == 4) {
+							e = new TimerButton(x * 8, y * 8, rr);
 						}
+						if (switchMap.containsKey(gg)) {
+							switchMap.get(gg).add(e);
+						} else {
+							switchMap.put(gg, new ArrayList<EntitySwitch>());
+							switchMap.get(gg).add(e);
+						}
+						if (!links.contains(gg))
+							links.add(gg);
+						rValue[i].addEntity((Entity) e);
+					} else {
+						ActivateableEntity e = null;
+						if (bb == 100) {
+							e = new Trapdoor(x * 8, y * 8);
+						} else if (bb == 101) {
+							e = new Door(x * 8, y * 8);
+						}
+						if (activateableMap.containsKey(gg)) {
+							activateableMap.get(gg).add(e);
+						} else {
+							activateableMap.put(gg, new ArrayList<ActivateableEntity>());
+							activateableMap.get(gg).add(e);
+						}
+						if (!links.contains(gg))
+							links.add(gg);
+						rValue[i].addEntity((Entity) e);
 					}
 				}
 			}
@@ -192,8 +179,14 @@ public class Level {
 		
 		for (int i = 0; i < links.size(); i++) {
 			List<ActivateableEntity> e = activateableMap.get(links.get(i));
-			for (int u = 0; u < e.size(); u++) {
-				switchMap.get(links.get(i)).linkEntity(e.get(u));
+			List<EntitySwitch> es = switchMap.get(links.get(i));
+			if (e != null && es != null) {
+				for (int u = 0; u < es.size(); u++) {
+					EntitySwitch es0 = es.get(u);
+					for (int f = 0; f < e.size(); f++) {
+						es0.linkEntity(e.get(f));
+					}
+				}
 			}
 		}
 		

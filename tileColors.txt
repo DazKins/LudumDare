@@ -1,7 +1,8 @@
 BLUE COLOR
-255 = solid tile
-100 = door
-150 = button
-50 = pressurePlate
-75 = lever
-25 = trapdoor
+0 = button
+1 = pressure plate
+2 = lever
+3 = timerbutton (r value indicates time)
+100 = Trapdoor
+101 = Door
+
