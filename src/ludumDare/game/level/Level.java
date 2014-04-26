@@ -14,7 +14,7 @@ import ludumDare.game.entity.Button;
 import ludumDare.game.entity.Door;
 import ludumDare.game.entity.Entity;
 import ludumDare.game.entity.EntitySwitch;
-import ludumDare.game.entity.PressurePlate;
+import ludumDare.game.entity.Lever;
 import ludumDare.game.level.tile.Tile;
 import ludumDare.gfx.Bitmap;
 
@@ -139,7 +139,7 @@ public class Level {
 							links.add(gg);
 						rValue[i].addEntity(e);
 					} else if (bb == 50) {
-						EntitySwitch e = new PressurePlate(x * 8, y * 8);
+						EntitySwitch e = new Lever(x * 8, y * 8);
 						switchMap.put(gg, e);
 						if (!links.contains(gg))
 							links.add(gg);
