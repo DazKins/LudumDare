@@ -29,10 +29,6 @@ public class Level {
 					tiles[x + y * w] = -1;
 			}
 		}
-		
-		tiles[8 + 13 * w] = 0;
-		tiles[8 + 14 * w] = 0;
-		tiles[8 + 15 * w] = 0;
 	}
 	
 	public void registerSecondaryLevel(Level l2) {

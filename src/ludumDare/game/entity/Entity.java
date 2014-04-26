@@ -38,6 +38,14 @@ public abstract class Entity {
 					if (this.getAABB().shifted(xa, ya).intersects(e.getAABB())) {
 						e.onCollide(this);
 					}
+					if (!e.mayPass(this)) {
+						if (this.getAABB().shifted(xa, 0).intersects(e.getAABB())) {
+							this.xa = 0;
+						}
+						if (this.getAABB().shifted(0, ya).intersects(e.getAABB())) {
+							this.ya = 0;
+						}
+					}
 				}
 			}
 		}
@@ -61,4 +69,8 @@ public abstract class Entity {
 	}
 	
 	public void onCollide(Entity e){}
+	
+	public boolean mayPass(Entity e) {
+		return true;
+	}
 }
