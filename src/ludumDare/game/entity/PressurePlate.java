@@ -26,7 +26,10 @@ public class PressurePlate extends AOESwitch {
 		super.tick();
 		if (lifeTicks - ticksSinceLastActivate > 1 && activated) {
 			activated = false;
-			linkedEntity.onActivate(null);
+			for (int i = 0; i < linkedEntities.length; i++) {
+				if (linkedEntities[i] != null)
+					linkedEntities[i].onActivate(null);
+			}
 		}
 	}
 }
