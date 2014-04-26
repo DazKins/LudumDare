@@ -29,10 +29,6 @@ public class Level {
 	
 	private Level pairedLevel;
 	
-	public Level(String path) {
-		loadLevelFromFile(path);
-	}
-	
 	public void registerSecondaryLevel(Level l2) {
 		pairedLevel = l2;
 	}
@@ -78,55 +74,78 @@ public class Level {
 		return null;
 	}
 	
-	public void loadLevelFromFile(String path) {
-		BufferedImage img = null;
+	public static Level[] loadLevelsFromFile(String path) {
+		BufferedImage img1 = null;
+		BufferedImage img2 = null;
+		
+		Level rValue[] = new Level[2];
+		rValue[0] = new Level();
+		rValue[1] = new Level();
 		
 		try {
-			img = ImageIO.read(Level.class.getResourceAsStream(path));
+			img1 = ImageIO.read(Level.class.getResourceAsStream(path + "_1.png"));
+			img2 = ImageIO.read(Level.class.getResourceAsStream(path + "_2.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		w = img.getWidth();
-		h = img.getHeight();
-		tiles = new int[w * h];
+		rValue[0].w = img1.getWidth();
+		rValue[0].h = img1.getHeight();
+		rValue[1].w = img2.getWidth();
+		rValue[1].h = img2.getHeight();
 		
-		int pixels[] = img.getRGB(0, 0, w, h, null, 0, w);
+		rValue[0].tiles = new int[rValue[0].w * rValue[0].h];
+		rValue[1].tiles = new int[rValue[1].w * rValue[1].h];
+		
+		int pixels1[] = img1.getRGB(0, 0, rValue[0].w, rValue[0].h, null, 0, rValue[0].w);
+		int pixels2[] = img2.getRGB(0, 0, rValue[1].w, rValue[1].h, null, 0, rValue[1].w);
 		
 		Map<Integer, ActivateableEntity> activateableMap = new HashMap<Integer, ActivateableEntity>();
 		Map<Integer, EntitySwitch> switchMap = new HashMap<Integer, EntitySwitch>();
 		List<Integer> links = new ArrayList<Integer>();
 		
-		for (int x = 0; x < img.getWidth(); x++) {
-			for (int y = 0; y < img.getHeight(); y++) {
-				int bb = pixels[x + y * img.getWidth()] & 0xFF;
-				int gg = (pixels[x + y * img.getWidth()] >> 8) & 0xFF;
-				tiles[x + y * w] = -1;
-				if (bb == 255) { 
-					tiles[x + y * w] = 0;
-				} else if (bb == 100) {
-					ActivateableEntity e = new Door(x * 8, y * 8);
-					activateableMap.put(gg, e);
-					if (!links.contains(gg))
-						links.add(gg);
-				} else if (bb == 150) {
-					EntitySwitch e = new Button(x * 8, y * 8);
-					switchMap.put(gg, e);
-					if (!links.contains(gg))
-						links.add(gg);
-				} else if (bb == 50) {
-					EntitySwitch e = new PressurePlate(x * 8, y * 8);
-					switchMap.put(gg, e);
-					if (!links.contains(gg))
-						links.add(gg);
+		for (int i = 0; i < rValue.length; i++) {
+			for (int x = 0; x < rValue[i].w; x++) {
+				for (int y = 0; y < rValue[i].h; y++) {
+					int bb, gg;
+					if (i == 0) {
+						bb = pixels1[x + y * img1.getWidth()] & 0xFF;
+						gg = (pixels1[x + y * img1.getWidth()] >> 8) & 0xFF;
+					} else {
+						bb = pixels2[x + y * img2.getWidth()] & 0xFF;
+						gg = (pixels2[x + y * img2.getWidth()] >> 8) & 0xFF;
+					}
+					rValue[i].tiles[x + y * rValue[i].w] = -1;
+					if (bb == 255) {
+						rValue[i].tiles[x + y * rValue[i].w] = 0;
+					} else if (bb == 100) {
+						ActivateableEntity e = new Door(x * 8, y * 8);
+						activateableMap.put(gg, e);
+						if (!links.contains(gg))
+							links.add(gg);
+						rValue[i].addEntity((Entity) e);
+					} else if (bb == 150) {
+						EntitySwitch e = new Button(x * 8, y * 8);
+						switchMap.put(gg, e);
+						if (!links.contains(gg))
+							links.add(gg);
+						rValue[i].addEntity(e);
+					} else if (bb == 50) {
+						EntitySwitch e = new PressurePlate(x * 8, y * 8);
+						System.out.println("hit");
+						switchMap.put(gg, e);
+						if (!links.contains(gg))
+							links.add(gg);
+						rValue[i].addEntity(e);
+					}
 				}
 			}
 		}
 		
 		for (int i = 0; i < links.size(); i++) {
 			switchMap.get(links.get(i)).linkEntity(activateableMap.get(links.get(i)));
-			this.addEntity(switchMap.get(links.get(i)));
-			this.addEntity((Entity) activateableMap.get(links.get(i)));
 		}
+		
+		return rValue;
 	}
 }

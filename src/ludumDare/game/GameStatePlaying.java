@@ -18,8 +18,9 @@ public class GameStatePlaying extends GameState {
 	
 	public GameStatePlaying(MainComponent m, InputHandler i) {
 		super(m, i);
-		l1 = new Level("/testLevel.png");
-		l2 = new Level("/testLevel.png");
+		Level levels[] = Level.loadLevelsFromFile("/testLevel");
+		l1 = levels[0];
+		l2 = levels[1];
 
 		l1.addEntity(new Player(input, 50, 50, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_D, KeyEvent.VK_A));
 		l2.addEntity(new Player(input, 50, 50, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT));
