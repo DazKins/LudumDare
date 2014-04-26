@@ -19,9 +19,9 @@ public class GameStatePlaying extends GameState {
 	private Player p1;
 	private Player p2;
 	
-	public GameStatePlaying(MainComponent m, InputHandler i, Dimension[] ws, int cs) {
+	public GameStatePlaying(MainComponent m, InputHandler i, Dimension[] ws, int cs1, int cs2) {
 		super(m, i, ws);
-		Level levels[] = Level.loadLevelsFromFile("/testLevel", p1 = new Player(cs, input, 50, 50, KeyEvent.VK_W, KeyEvent.VK_D, KeyEvent.VK_A, KeyEvent.VK_E), p2 = new Player(cs, input, 50, 50, KeyEvent.VK_UP, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_CONTROL));
+		Level levels[] = Level.loadLevelsFromFile("/testLevel", p1 = new Player(cs1, input, 50, 50, KeyEvent.VK_W, KeyEvent.VK_D, KeyEvent.VK_A, KeyEvent.VK_E), p2 = new Player(cs2, input, 50, 50, KeyEvent.VK_UP, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_CONTROL));
 		l1 = levels[0];
 		l2 = levels[1];
 		
