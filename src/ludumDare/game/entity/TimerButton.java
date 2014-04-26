@@ -19,7 +19,7 @@ public class TimerButton extends AcitvateableSwitch {
 	public void onCollide(Entity e) {
 		if (e instanceof Player) {
 			Player p = (Player) e;
-			if (p.isInteracting()) {
+			if (p.isInteracting() && lifeTicks - ticksSinceLastActivate > tickTimer) {
 				super.onActivate(e);
 				ticksSinceLastActivate = lifeTicks;
 				activated = true;

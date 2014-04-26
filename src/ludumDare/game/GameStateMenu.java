@@ -15,9 +15,6 @@ public class GameStateMenu extends GameState {
 	
 	private int selectedMenuOption;
 	
-	private int menuSwitchCD = -1;
-	private int menuSwitchTimer = menuSwitchCD;
-	
 	public GameStateMenu(MainComponent m, InputHandler i, Dimension[] ws) {
 		super(m, i, ws);
 		
@@ -35,20 +32,25 @@ public class GameStateMenu extends GameState {
 	}
 
 	public void tick() {
-		
-		if (input.keyStream[KeyEvent.VK_UP] && menuSwitchCD < menuSwitchTimer) {
+		if (input.keyStream[KeyEvent.VK_UP]) {
 			selectedMenuOption -= 1;
-			menuSwitchTimer = 0;
 		}
-		if (input.keyStream[KeyEvent.VK_DOWN] && menuSwitchCD < menuSwitchTimer) {
+		if (input.keyStream[KeyEvent.VK_DOWN]) {
 			selectedMenuOption += 1;
-			menuSwitchTimer = 0;
 		}
+		
+		if (input.keyStream[KeyEvent.VK_ENTER]) {
+			if (selectedMenuOption == 0) {
+				mc.changegameState(new GameStatePlaying(mc, input, windowSizes));
+			}
+			if (selectedMenuOption == 1) {
+				System.exit(0);
+			}
+		}
+		
 		if (selectedMenuOption >= menuOptions.size())
 			selectedMenuOption = 0;
 		if (selectedMenuOption < 0)
 			selectedMenuOption = menuOptions.size() - 1;
-		
-		menuSwitchTimer++;
 	}
 }
