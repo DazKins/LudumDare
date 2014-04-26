@@ -1,5 +1,7 @@
 package ludumDare.game.entity.mob;
 
+import ludumDare.game.entity.Entity;
+import ludumDare.game.entity.JumpBlock;
 import ludumDare.gfx.Art;
 import ludumDare.gfx.Bitmap;
 import ludumDare.input.InputHandler;
@@ -37,9 +39,17 @@ public class Player extends Mob {
 	public void render(Bitmap b, float xOff, float yOff) {
 		int frame = 0;
 		if (Math.abs(xa) >= 0.5)
+			
 			frame = (int) (lifeTicks /  20.0f) % 2;
 		b.blit((int)(x - xOff), (int)(y - yOff), Art.sprites[frame + selectedChar * 2][0],  xa < 0 ? true : false, false, 1.0f, 1.0f);
 		b.blit((int)(x - xOff), (int)(y - yOff) + 8, Art.sprites[frame + selectedChar * 2][1],  xa < 0 ? true : false, false, 1.0f, 1.0f);
+	}
+	
+	public void onCollide(Entity e) {
+		if (e instanceof JumpBlock) {
+			if (((JumpBlock)e).enabled)
+				ya = -3;
+		}
 	}
 
 	public void tick() {

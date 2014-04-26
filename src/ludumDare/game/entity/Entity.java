@@ -31,15 +31,20 @@ public abstract class Entity {
 		level = l;
 	}
 	
+	public void setX(float x) {
+		this.x = x;
+	}
+	
+	public void setY(float y) {
+		this.y = y;
+	}
+	
 	protected void move(float xa, float ya) {
 		List<Entity> entities = level.getEntities();
 		for (int i = 0; i < entities.size(); i++) {
 			Entity e = entities.get(i);
 			if (e != this) {
 				if (e.getAABB() != null) {
-					if (this.getAABB().shifted(xa, ya).intersects(e.getAABB())) {
-						e.onCollide(this);
-					}
 					if (!e.mayPass(this)) {
 						if (this.getAABB().shifted(xa, 0).intersects(e.getAABB())) {
 							this.xa = 0;
@@ -49,6 +54,10 @@ public abstract class Entity {
 								isOnFloor = true;
 							this.ya = 0;
 						}
+					}
+					if (this.getAABB().shifted(xa, ya).intersects(e.getAABB())) {
+						e.onCollide(this);
+						this.onCollide(e);
 					}
 				}
 			}

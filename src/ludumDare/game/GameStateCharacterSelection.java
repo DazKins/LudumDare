@@ -13,16 +13,16 @@ import ludumDare.input.InputHandler;
 public class GameStateCharacterSelection extends GameState {
 	private int selectedCharacter;
 	
-	public String names[] = {"Steve", "Jim", "Zombie", "Tyrone", "Lego Man", "Notch", "Miner"};
+	public String names[] = {"Steve", "Jim", "Zombie", "Tyrone", "Lego Man", "Notch", "Miner", "Lara"};
 
 	public GameStateCharacterSelection(MainComponent m, InputHandler i, Dimension[] ws) {
 		super(m, i, ws);
 	}
 
 	public void render(Bitmap b1, Bitmap b2) {
-		for (int i = 0; i < 8; i++) {
-			b1.blit(i * 64, 0, Art.background, false, false, 1.0f, 1.0f);
-			b2.blit(i * 64, 0, Art.background, false, false, 1.0f, 1.0f);
+		for (int i = 0; i < 4; i++) {
+			b1.blit(i * 128, 0, Art.background, false, false, 1.0f, 1.0f);
+			b2.blit(i * 128, 0, Art.background, false, false, 1.0f, 1.0f);
 		}
 		
 		b1.blit(windowSizes[0].width / 2 - 20, windowSizes[1].height / 2 - 40, Art.sprites[selectedCharacter * 2][0], false, false, 1.0f, 5.0f);
@@ -46,8 +46,8 @@ public class GameStateCharacterSelection extends GameState {
 			selectedCharacter -= 1;
 		
 		if (selectedCharacter < 0)
-			selectedCharacter = 5;
-		if (selectedCharacter > 5)
+			selectedCharacter = 7;
+		if (selectedCharacter > 7)
 			selectedCharacter = 0;
 	}
 	

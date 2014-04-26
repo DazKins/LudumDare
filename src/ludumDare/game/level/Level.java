@@ -14,10 +14,12 @@ import ludumDare.game.entity.Button;
 import ludumDare.game.entity.Door;
 import ludumDare.game.entity.Entity;
 import ludumDare.game.entity.EntitySwitch;
+import ludumDare.game.entity.JumpBlock;
 import ludumDare.game.entity.Lever;
 import ludumDare.game.entity.PressurePlate;
 import ludumDare.game.entity.TimerButton;
 import ludumDare.game.entity.Trapdoor;
+import ludumDare.game.entity.mob.Player;
 import ludumDare.game.level.tile.Tile;
 import ludumDare.gfx.Art;
 import ludumDare.gfx.Bitmap;
@@ -46,8 +48,8 @@ public class Level {
 	}
 	
 	public void render(Bitmap b, float xOff, float yOff) {
-		for (int i = 0; i < w / 8 + 1; i++) {
-			b.blit((int) (i * 64 - xOff / 4), 0, Art.background, false, false, 1.0f, 1.0f);
+		for (int i = 0; i < w / 4 + 1; i++) {
+			b.blit((int) (i * 128 - xOff / 4), 0, Art.background, false, false, 1.0f, 1.0f);
 		}
 		for (int x = 0; x < w; x++) {
 			for (int y = 0; y < h; y++) {
@@ -89,7 +91,7 @@ public class Level {
 		return null;
 	}
 	
-	public static Level[] loadLevelsFromFile(String path) {
+	public static Level[] loadLevelsFromFile(String path, Player p1, Player p2) {
 		BufferedImage img1 = null;
 		BufferedImage img2 = null;
 		
@@ -134,7 +136,19 @@ public class Level {
 					}
 					rValue[i].tiles[x + y * rValue[i].w] = -1;
 					if (bb == 255) {
-						rValue[i].tiles[x + y * rValue[i].w] = 0;
+						if (gg == 255)
+							rValue[i].tiles[x + y * rValue[i].w] = 0;
+						else {
+							if (i == 0) {
+								p1.setX(x * 8);
+								p1.setY(y * 8);
+								rValue[0].addEntity(p1);
+							} else {
+								p2.setX(x * 8);
+								p2.setY(y * 8);
+								rValue[1].addEntity(p2);
+							}
+						}
 					} else if (bb == 0) {}
 					else if (bb < 100) {
 						EntitySwitch e = null;
@@ -162,6 +176,8 @@ public class Level {
 							e = new Trapdoor(x * 8, y * 8);
 						} else if (bb == 101) {
 							e = new Door(x * 8, y * 8);
+						} else if (bb == 102) {
+							e = new JumpBlock(x * 8, y * 8);
 						}
 						if (activateableMap.containsKey(gg)) {
 							activateableMap.get(gg).add(e);

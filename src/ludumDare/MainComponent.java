@@ -91,9 +91,7 @@ public class MainComponent implements Runnable {
 			}
 
 			frame[i] = new JFrame(NAME + ": Window " + (i + 1));
-			// to close the frames, use Alt+F4
-//			if (!debugMode)
-				frame[i].setUndecorated(true);
+			frame[i].setUndecorated(true);
 			frame[i].setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame[i].setLayout(new BorderLayout());
 

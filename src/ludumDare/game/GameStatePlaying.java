@@ -21,12 +21,9 @@ public class GameStatePlaying extends GameState {
 	
 	public GameStatePlaying(MainComponent m, InputHandler i, Dimension[] ws, int cs) {
 		super(m, i, ws);
-		Level levels[] = Level.loadLevelsFromFile("/testLevel");
+		Level levels[] = Level.loadLevelsFromFile("/testLevel", p1 = new Player(cs, input, 50, 50, KeyEvent.VK_W, KeyEvent.VK_D, KeyEvent.VK_A, KeyEvent.VK_E), p2 = new Player(cs, input, 50, 50, KeyEvent.VK_UP, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_CONTROL));
 		l1 = levels[0];
 		l2 = levels[1];
-
-		l1.addEntity(p1 = new Player(cs, input, 50, 50, KeyEvent.VK_W, KeyEvent.VK_D, KeyEvent.VK_A, KeyEvent.VK_E));
-		l2.addEntity(p2 = new Player(cs, input, 50, 50, KeyEvent.VK_UP, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_CONTROL));
 		
 		l1.registerSecondaryLevel(l2);
 		l2.registerSecondaryLevel(l1);
@@ -54,5 +51,9 @@ public class GameStatePlaying extends GameState {
 			xOff2 = (float) ((l2.getWidth() * 8) - windowSizes[1].getWidth());
 		if (xOff2 < 0)
 			xOff2 = 0;
+	}
+	
+	public void setLevel(int level) {
+		
 	}
 }

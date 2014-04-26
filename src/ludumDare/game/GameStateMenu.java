@@ -24,9 +24,9 @@ public class GameStateMenu extends GameState {
 	}
 
 	public void render(Bitmap b1, Bitmap b2) {
-		for (int i = 0; i < 8; i++) {
-			b1.blit(i * 64, 0, Art.background, false, false, 1.0f, 1.0f);
-			b2.blit(i * 64, 0, Art.background, false, false, 1.0f, 1.0f);
+		for (int i = 0; i < 4; i++) {
+			b1.blit(i * 128, 0, Art.background, false, false, 1.0f, 1.0f);
+			b2.blit(i * 128, 0, Art.background, false, false, 1.0f, 1.0f);
 		}
 		
 		for (int i = 0; i < menuOptions.size(); i++) {
