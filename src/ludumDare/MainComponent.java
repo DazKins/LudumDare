@@ -14,7 +14,6 @@ import javax.swing.JFrame;
 
 import ludumDare.game.GameState;
 import ludumDare.game.GameStateMenu;
-import ludumDare.game.GameStatePlaying;
 import ludumDare.gfx.Art;
 import ludumDare.gfx.Bitmap;
 import ludumDare.input.InputHandler;

@@ -39,6 +39,22 @@ public abstract class Entity {
 		this.y = y;
 	}
 	
+	public float getXA() {
+		return xa;
+	}
+	
+	public float getYA() {
+		return ya;
+	}
+	
+	public void setXA(float xa) {
+		this.xa = xa;
+	}
+	
+	public void setYA(float ya) {
+		this.ya = ya;
+	}
+	
 	protected void move(float xa, float ya) {
 		List<Entity> entities = level.getEntities();
 		for (int i = 0; i < entities.size(); i++) {
@@ -58,6 +74,20 @@ public abstract class Entity {
 					if (this.getAABB().shifted(xa, ya).intersects(e.getAABB())) {
 						e.onCollide(this);
 						this.onCollide(e);
+					}
+					if (this.getAABB().shifted(0, ya).intersects(e.getAABB())) {
+						e.onYCollide(this);
+						this.onYCollide(e);
+						if (!e.mayPassY(this)) {
+							this.ya = 0;
+							isOnFloor = true;
+						}
+					}
+					if (this.getAABB().shifted(xa, 0).intersects(e.getAABB())) {
+						e.onXCollide(this);
+						this.onXCollide(e);
+						if (!e.mayPassX(this))
+							this.xa = 0;
 					}
 				}
 			}
@@ -82,6 +112,18 @@ public abstract class Entity {
 	}
 	
 	public void onCollide(Entity e){}
+
+	public void onXCollide(Entity e){}
+
+	public void onYCollide(Entity e){}
+	
+	public boolean mayPassX(Entity e) {
+		return true;
+	}
+	
+	public boolean mayPassY(Entity e) {
+		return true;
+	}
 	
 	public boolean mayPass(Entity e) {
 		return true;

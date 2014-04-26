@@ -7,9 +7,11 @@ import ludumDare.math.AABB;
 
 public class JumpBlock extends Entity implements ActivateableEntity {
 	public boolean enabled;
+	public float boostHeight;
 	
-	public JumpBlock(int x, int y) {
+	public JumpBlock(int x, int y, float bh) {
 		super(x, y);
+		boostHeight = bh;
 	}
 
 	public void onActivate(Entity e) {

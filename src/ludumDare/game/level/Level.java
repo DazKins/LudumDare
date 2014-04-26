@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import ludumDare.game.entity.ActivateableEntity;
+import ludumDare.game.entity.Ball;
 import ludumDare.game.entity.Button;
 import ludumDare.game.entity.Door;
 import ludumDare.game.entity.Entity;
@@ -17,6 +18,7 @@ import ludumDare.game.entity.EntitySwitch;
 import ludumDare.game.entity.JumpBlock;
 import ludumDare.game.entity.Lever;
 import ludumDare.game.entity.PressurePlate;
+import ludumDare.game.entity.SpeedBlock;
 import ludumDare.game.entity.TimerButton;
 import ludumDare.game.entity.Trapdoor;
 import ludumDare.game.entity.mob.Player;
@@ -132,7 +134,7 @@ public class Level {
 					} else {
 						bb = pixels2[x + y * img2.getWidth()] & 0xFF;
 						gg = (pixels2[x + y * img2.getWidth()] >> 8) & 0xFF;
-						rr = (pixels1[x + y * img1.getWidth()] >> 16) & 0xFF;
+						rr = (pixels2[x + y * img2.getWidth()] >> 16) & 0xFF;
 					}
 					rValue[i].tiles[x + y * rValue[i].w] = -1;
 					if (bb == 255) {
@@ -170,14 +172,16 @@ public class Level {
 						if (!links.contains(gg))
 							links.add(gg);
 						rValue[i].addEntity((Entity) e);
-					} else {
+					} else if (bb < 200) {
 						ActivateableEntity e = null;
 						if (bb == 100) {
 							e = new Trapdoor(x * 8, y * 8);
 						} else if (bb == 101) {
 							e = new Door(x * 8, y * 8);
 						} else if (bb == 102) {
-							e = new JumpBlock(x * 8, y * 8);
+							e = new JumpBlock(x * 8, y * 8, rr / 10.0f);
+						} else if (bb == 103) {
+							e = new SpeedBlock(x * 8, y * 8, rr);
 						}
 						if (activateableMap.containsKey(gg)) {
 							activateableMap.get(gg).add(e);
@@ -188,6 +192,8 @@ public class Level {
 						if (!links.contains(gg))
 							links.add(gg);
 						rValue[i].addEntity((Entity) e);
+					} else if (bb == 200) {
+						rValue[i].addEntity(new Ball(x * 8, y * 8));
 					}
 				}
 			}

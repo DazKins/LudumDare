@@ -1,7 +1,9 @@
 package ludumDare.game.entity.mob;
 
+import ludumDare.game.entity.Ball;
 import ludumDare.game.entity.Entity;
 import ludumDare.game.entity.JumpBlock;
+import ludumDare.game.entity.SpeedBlock;
 import ludumDare.gfx.Art;
 import ludumDare.gfx.Bitmap;
 import ludumDare.input.InputHandler;
@@ -36,28 +38,43 @@ public class Player extends Mob {
 		return input.keyStream[interactKey];
 	}
 	
+	boolean headFlip;
+	
 	public void render(Bitmap b, float xOff, float yOff) {
 		int frame = 0;
 		if (Math.abs(xa) >= 0.5)
-			
 			frame = (int) (lifeTicks /  20.0f) % 2;
-		b.blit((int)(x - xOff), (int)(y - yOff), Art.sprites[frame + selectedChar * 2][0],  xa < 0 ? true : false, false, 1.0f, 1.0f);
-		b.blit((int)(x - xOff), (int)(y - yOff) + 8, Art.sprites[frame + selectedChar * 2][1],  xa < 0 ? true : false, false, 1.0f, 1.0f);
+		if (xa != 0)
+			headFlip = xa < 0 ? true : false;
+		b.blit((int)(x - xOff), (int)(y - yOff), Art.sprites[frame + selectedChar * 2][0],  headFlip, false, 1.0f, 1.0f);
+		b.blit((int)(x - xOff), (int)(y - yOff) + 8, Art.sprites[frame + selectedChar * 2][1],  headFlip, false, 1.0f, 1.0f);
 	}
 	
 	public void onCollide(Entity e) {
 		if (e instanceof JumpBlock) {
-			if (((JumpBlock)e).enabled)
-				ya = -3;
+			JumpBlock jb = (JumpBlock) e;
+			if (jb.enabled)
+				ya = -jb.boostHeight;
+		}
+		if (e instanceof SpeedBlock) {
+			SpeedBlock sb = (SpeedBlock) e;
+			if (sb.active) {
+				if (xa < 0)
+					xa = -sb.speed;
+				if (xa > 0)
+					xa = sb.speed;
+			}
 		}
 	}
 
 	public void tick() {
 		super.tick();
-		if (input.keys[rightKey])
-			xa = 1;
-		if (input.keys[leftKey])
-			xa = -1;
+		if (xa >= -1 && xa <= 1) {
+			if (input.keys[rightKey])
+				xa = 1;
+			if (input.keys[leftKey])
+				xa = -1;
+		}
 		if (input.keys[jumpKey]) {
 			if (isOnFloor)
 				ya = -2;

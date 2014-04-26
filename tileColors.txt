@@ -1,8 +1,9 @@
 BLUE COLOR
-0 = button
-1 = pressure plate
-2 = lever
-3 = timerbutton (r value indicates time)
+1 = button
+2 = pressure plate
+3 = lever
+4 = timerbutton (r value indicates time)
 100 = Trapdoor
 101 = Door
+200 = Moveable block
 
