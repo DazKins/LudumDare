@@ -3,17 +3,14 @@ package ludumDare.game;
 import java.awt.event.KeyEvent;
 
 import ludumDare.MainComponent;
-import ludumDare.game.entity.AcitvateableSwitch;
-import ludumDare.game.entity.ActivateableEntity;
 import ludumDare.game.entity.Button;
 import ludumDare.game.entity.Door;
-import ludumDare.game.entity.Entity;
+import ludumDare.game.entity.PressurePlate;
 import ludumDare.game.entity.mob.Player;
 import ludumDare.game.level.Level;
 import ludumDare.gfx.Bitmap;
 import ludumDare.gfx.Font;
 import ludumDare.input.InputHandler;
-import ludumDare.math.AABB;
 
 public class GameStatePlaying extends GameState {
 	private Level l1;
@@ -29,8 +26,8 @@ public class GameStatePlaying extends GameState {
 		testDoor = new Door(48, 112);
 		l2.addEntity(testDoor);
 
-		l1.addEntity(new Button(0, 120, testDoor));
 		l1.addEntity(new Player(input, 50, 50, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_D, KeyEvent.VK_A));
+		l1.addEntity(new PressurePlate(0, 120, testDoor));
 		l2.addEntity(new Player(input, 50, 50, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT));
 		l1.registerSecondaryLevel(l2);
 		l2.registerSecondaryLevel(l1);

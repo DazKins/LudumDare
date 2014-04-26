@@ -6,7 +6,7 @@ import ludumDare.math.AABB;
 
 public class Button extends AOESwitch {
 	public Button(float x, float y, ActivateableEntity ae) {
-		super(ae, new AABB(x, y + 6, x + 8, y + 2));
+		super(ae, new AABB(x, y, x + 8, y + 2));
 		this.x = x;
 		this.y = y;
 	}

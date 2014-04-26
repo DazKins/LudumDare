@@ -15,10 +15,6 @@ public class AOESwitch extends EntitySwitch {
 	public AABB getAABB() {
 		return aabb;
 	}
-
-	public void render(Bitmap b) {
-		
-	}
 	
 	public void tick() {
 		super.tick();
@@ -26,5 +22,9 @@ public class AOESwitch extends EntitySwitch {
 
 	public void onCollide(Entity e) {
 		super.onActivate(e);
+	}
+
+	public void render(Bitmap b) {
+		
 	}
 }
