@@ -10,7 +10,7 @@ public class XMovingPlatform extends Entity implements ActivateableEntity {
 	public float speed = 0.1f;
 	private int targetX;
 	
-	public XMovingPlatform(int x, int y, int tx) {
+	public XMovingPlatform(float x, float y, int tx) {
 		super(x, y);
 		targetX = tx;
 	}
@@ -30,7 +30,9 @@ public class XMovingPlatform extends Entity implements ActivateableEntity {
 				m.nextFrameXA += getXA();
 			m.isOnMovingPlatform = true;
 			if (m.getAABB().intersects(this.getAABB())) {
-				
+				System.out.println(m.getAABB().xDifference(this.getAABB()));
+//				m.setX(m.getX() +);
+//				m.setY(m.getY() + m.getAABB().yDifference(this.getAABB()));
 			}
 		}
 	}

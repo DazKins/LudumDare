@@ -94,8 +94,6 @@ public class Player extends Mob {
 		}
 		if (input.keys[jumpKey]) {
 			if (isOnFloor) {
-				ya -= 2;
-				jumpNormal.play();
 				ya = -2;
 				jumpNormal.play(true);
 			}

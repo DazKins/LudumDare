@@ -64,7 +64,6 @@ public class Ball extends Mob {
 			count = 0;
 		}
 		
-		System.out.println(xa);
 		if (Math.abs(xa) < 0.1) {moving.play(false);}
 		if (Math.abs(first) == 0.765625 && Math.abs(second) == 0.765625 && Math.abs(third) == 0.765625) moving.play(false);
 		
