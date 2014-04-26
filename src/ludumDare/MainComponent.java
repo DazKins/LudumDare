@@ -204,4 +204,8 @@ public class MainComponent implements Runnable {
 			bs.show();
 		}
 	}
+	
+	public void changegameState(GameState gs) {
+		this.gs = gs;
+	}
 }
