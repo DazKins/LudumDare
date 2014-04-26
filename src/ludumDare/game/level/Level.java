@@ -14,7 +14,9 @@ import ludumDare.game.entity.Button;
 import ludumDare.game.entity.Door;
 import ludumDare.game.entity.Entity;
 import ludumDare.game.entity.EntitySwitch;
+import ludumDare.game.entity.Lever;
 import ludumDare.game.entity.PressurePlate;
+import ludumDare.game.entity.Trapdoor;
 import ludumDare.game.level.tile.Tile;
 import ludumDare.gfx.Bitmap;
 
@@ -108,7 +110,7 @@ public class Level {
 		int pixels1[] = img1.getRGB(0, 0, rValue[0].w, rValue[0].h, null, 0, rValue[0].w);
 		int pixels2[] = img2.getRGB(0, 0, rValue[1].w, rValue[1].h, null, 0, rValue[1].w);
 		
-		Map<Integer, ActivateableEntity> activateableMap = new HashMap<Integer, ActivateableEntity>();
+		Map<Integer, List<ActivateableEntity>> activateableMap = new HashMap<Integer, List<ActivateableEntity>>();
 		Map<Integer, EntitySwitch> switchMap = new HashMap<Integer, EntitySwitch>();
 		List<Integer> links = new ArrayList<Integer>();
 		
@@ -126,12 +128,6 @@ public class Level {
 					rValue[i].tiles[x + y * rValue[i].w] = -1;
 					if (bb == 255) {
 						rValue[i].tiles[x + y * rValue[i].w] = 0;
-					} else if (bb == 100) {
-						ActivateableEntity e = new Door(x * 8, y * 8);
-						activateableMap.put(gg, e);
-						if (!links.contains(gg))
-							links.add(gg);
-						rValue[i].addEntity((Entity) e);
 					} else if (bb == 150) {
 						EntitySwitch e = new Button(x * 8, y * 8);
 						switchMap.put(gg, e);
@@ -144,14 +140,44 @@ public class Level {
 						if (!links.contains(gg))
 							links.add(gg);
 						rValue[i].addEntity(e);
-					} else {
+					} else if (bb == 75) {
+						EntitySwitch e = new Lever(x * 8, y * 8);
+						switchMap.put(gg, e);
+						if (!links.contains(gg))
+							links.add(gg);
+						rValue[i].addEntity(e);
+					} else if (bb == 25) {
+						ActivateableEntity e = new Trapdoor(x * 8, y * 8);
+						if (activateableMap.containsKey(gg)) {
+							activateableMap.get(gg).add(e);
+						} else {
+							activateableMap.put(gg, new ArrayList<ActivateableEntity>());
+							activateableMap.get(gg).add(e);
+						}
+						if (!links.contains(gg))
+							links.add(gg);
+						rValue[i].addEntity((Entity) e);
+					} else if (bb == 100) {
+						ActivateableEntity e = new Door(x * 8, y * 8);
+						if (activateableMap.containsKey(gg)) {
+							activateableMap.get(gg).add(e);
+						} else {
+							activateableMap.put(gg, new ArrayList<ActivateableEntity>());
+							activateableMap.get(gg).add(e);
+						}
+						if (!links.contains(gg))
+							links.add(gg);
+						rValue[i].addEntity((Entity) e);
 					}
 				}
 			}
 		}
 		
 		for (int i = 0; i < links.size(); i++) {
-			switchMap.get(links.get(i)).linkEntity(activateableMap.get(links.get(i)));
+			List<ActivateableEntity> e = activateableMap.get(links.get(i));
+			for (int u = 0; u < e.size(); u++) {
+				switchMap.get(links.get(i)).linkEntity(e.get(u));
+			}
 		}
 		
 		return rValue;

@@ -2,12 +2,10 @@ package ludumDare.game;
 
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
-
 import ludumDare.MainComponent;
 import ludumDare.game.entity.mob.Player;
 import ludumDare.game.level.Level;
 import ludumDare.gfx.Bitmap;
-import ludumDare.gfx.Font;
 import ludumDare.input.InputHandler;
 
 public class GameStatePlaying extends GameState {
@@ -29,8 +27,8 @@ public class GameStatePlaying extends GameState {
 		l1 = levels[0];
 		l2 = levels[1];
 
-		l1.addEntity(p1 = new Player(input, 50, 50, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_D, KeyEvent.VK_A));
-		l2.addEntity(p2 = new Player(input, 50, 50, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT));
+		l1.addEntity(p1 = new Player(input, 50, 50, KeyEvent.VK_W, KeyEvent.VK_D, KeyEvent.VK_A, KeyEvent.VK_E));
+		l2.addEntity(p2 = new Player(input, 50, 50, KeyEvent.VK_UP, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_CONTROL));
 		
 		l1.registerSecondaryLevel(l2);
 		l2.registerSecondaryLevel(l1);

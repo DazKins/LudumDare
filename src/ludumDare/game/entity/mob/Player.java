@@ -11,14 +11,15 @@ import ludumDare.math.AABB;
 public class Player extends Mob {
 	private InputHandler input;
 	
-	private int jumpKey, leftKey, rightKey;
+	private int jumpKey, leftKey, rightKey, interactKey;
 
-	public Player(InputHandler i, int x, int y, int u, int d, int r, int l) {
+	public Player(InputHandler i, int x, int y, int u, int r, int l, int interactKey) {
 		super(x, y);
 		input = i;
 		jumpKey = u;
 		leftKey = l;
 		rightKey = r;
+		this.interactKey = interactKey;
 	}
 	
 	public AABB getAABB() {
@@ -26,7 +27,7 @@ public class Player extends Mob {
 	}
 	
 	public boolean isInteracting() {
-		return input.keyStream[KeyEvent.VK_E];
+		return input.keyStream[interactKey];
 	}
 	
 	public void render(Bitmap b, float xOff, float yOff) {

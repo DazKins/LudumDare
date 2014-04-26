@@ -3,3 +3,5 @@ BLUE COLOR
 100 = door
 150 = button
 50 = pressurePlate
+75 = lever
+25 = trapdoor
