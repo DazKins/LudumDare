@@ -16,6 +16,8 @@ public abstract class Entity {
 	
 	protected int lifeTicks;
 	
+	protected boolean isOnFloor = true;
+	
 	public AABB getAABB() {
 		return null;
 	}
@@ -43,6 +45,8 @@ public abstract class Entity {
 							this.xa = 0;
 						}
 						if (this.getAABB().shifted(0, ya).intersects(e.getAABB())) {
+							if (y > 0)
+								isOnFloor = true;
 							this.ya = 0;
 						}
 					}

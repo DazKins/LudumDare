@@ -1,8 +1,5 @@
 package ludumDare.game.entity.mob;
 
-import java.awt.event.KeyEvent;
-
-import ludumDare.game.level.Level;
 import ludumDare.gfx.Art;
 import ludumDare.gfx.Bitmap;
 import ludumDare.input.InputHandler;
@@ -45,7 +42,7 @@ public class Player extends Mob {
 		if (input.keys[leftKey])
 			xa = -1;
 		if (input.keys[jumpKey]) {
-			if (ya == 0)
+			if (isOnFloor)
 				ya = -2;
 		}
 		
