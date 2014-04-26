@@ -29,6 +29,14 @@ public class Level {
 	
 	private Level pairedLevel;
 	
+	public int getWidth() {
+		return w;
+	}
+	
+	public int getHeight() {
+		return h;
+	}
+	
 	public void registerSecondaryLevel(Level l2) {
 		pairedLevel = l2;
 	}

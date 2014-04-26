@@ -4,9 +4,6 @@ import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 
 import ludumDare.MainComponent;
-import ludumDare.game.entity.Button;
-import ludumDare.game.entity.Door;
-import ludumDare.game.entity.PressurePlate;
 import ludumDare.game.entity.mob.Player;
 import ludumDare.game.level.Level;
 import ludumDare.gfx.Bitmap;
@@ -44,16 +41,22 @@ public class GameStatePlaying extends GameState {
 	public void render(Bitmap b1, Bitmap b2) {
 		l1.render(b1, xOff1, 0);
 		l2.render(b2, xOff2, 0);
-		
-		Font.renderString(b1, 0, 0, "test123//;;-+");
 	}
 
 	public void tick() {
 		l1.tick();
 		l2.tick();
 		
-		xOff1 = (float) (p1.getX() - windowSizes[1].getWidth() / 4);
+		xOff1 = (float) (p1.getX() - windowSizes[0].getWidth() / 2);
+		if (xOff1 + windowSizes[0].getWidth() > l1.getWidth() * 8)
+			xOff1 = (float) (l1.getWidth() * 8 - windowSizes[0].getWidth());
+		if (xOff1 < 0)
+			xOff1 = 0;
 		
-		xOff2 = (float) (p2.getX() - windowSizes[1].getWidth() / 4);
+		xOff2 = (float) (p2.getX() - windowSizes[1].getWidth() / 2);
+		if (xOff2 + windowSizes[1].getWidth() > l2.getWidth() * 8)
+			xOff2 = (float) ((l2.getWidth() * 8) - windowSizes[1].getWidth());
+		if (xOff2 < 0)
+			xOff2 = 0;
 	}
 }

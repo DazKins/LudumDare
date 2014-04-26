@@ -81,11 +81,9 @@ public class MainComponent implements Runnable {
 				canvas[i].setMinimumSize(d);
 				canvas[i].setMaximumSize(d);
 				canvas[i].setPreferredSize(d);
-				windowPixelSizes[i] = new Dimension((int) (d.getWidth() / SCALE), (int) (d.getHeight() / SCALE));
 			} else {
 				int w = (d.width - 10) / 2;
 				int h = (int) (w * ((float) d.height / (float) d.width));
-				windowPixelSizes[i] = new Dimension(w / SCALE, h / SCALE);
 				canvas[i].setMinimumSize(new Dimension(w, h));
 				canvas[i].setMaximumSize(new Dimension(w, h));
 				canvas[i].setPreferredSize(new Dimension(w, h));
@@ -105,6 +103,7 @@ public class MainComponent implements Runnable {
 			frame[i].setLocationRelativeTo(null);
 			
 			image[i] = new BufferedImage((int) ((d.getWidth() / d.getHeight() * 405.0f) / SCALE), (int) (405.0f / SCALE), BufferedImage.TYPE_INT_RGB);
+			windowPixelSizes[i] = new Dimension(image[i].getWidth(), image[i].getHeight());
 
 			bitmap[i] = new Bitmap(image[i]);
 
