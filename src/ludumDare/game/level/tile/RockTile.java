@@ -5,7 +5,7 @@ import ludumDare.math.AABB;
 
 public class RockTile extends Tile {
 	public RockTile(int id) {
-		super(id, 0, 2, true);
+		super(id, 0, 4, true);
 	}
 	
 	public AABB getAABB(Level l, int x, int y) {

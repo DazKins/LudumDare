@@ -7,14 +7,15 @@ import ludumDare.math.AABB;
 
 public class Tile {
 	public static Tile tiles[] = new Tile[256];
-	
+
 	public static Tile rock = new RockTile(0);
 
 	private int id;
 	private int tx;
 	private int ty;
+	private int bm;
 	private boolean col;
-	
+
 	public Tile(int id, int tx, int ty, boolean c) {
 		this.tx = tx;
 		this.ty = ty;
@@ -22,15 +23,44 @@ public class Tile {
 		this.id = id;
 		tiles[id] = this;
 	}
-	
+
 	public void render(Bitmap b, Level l, int x, int y) {
+		Tile tu = l.getTile(x, y - 1);
+		Tile tr = l.getTile(x + 1, y);
+		Tile td = l.getTile(x, y + 1);
+		Tile tl = l.getTile(x - 1, y);
+		
+		bm = 0;
+		
+		if (tu != null) {
+			if (this.getID() == tu.getID()) {
+				bm += 1;
+			}
+		}
+		if (tr != null) {
+			if (this.getID() == tr.getID()) {
+				bm += 2;
+			}
+		}
+		if (td != null) {
+			if (this.getID() == td.getID()) {
+				bm += 4;
+			}
+		}
+		if (tl != null) {
+			if (this.getID() == tl.getID()) {
+				bm += 8;
+			}
+		}
+		this.tx = bm;
+
 		b.blit(x * 8, y * 8, Art.sprites[tx][ty], false, false, 1.0f);
 	}
-	
+
 	public AABB getAABB(Level l, int x, int y) {
 		return null;
 	}
-	
+
 	public int getID() {
 		return id;
 	}
