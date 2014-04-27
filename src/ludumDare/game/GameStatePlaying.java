@@ -73,7 +73,7 @@ public class GameStatePlaying extends GameState {
 	}
 	
 	public void setLevel(int level) {
-		Level levels[] = Level.loadLevelsFromFile("/Level2", p1 = new Player(sp1, input, 50, 50, KeyEvent.VK_W, KeyEvent.VK_D, KeyEvent.VK_A, KeyEvent.VK_E), p2 = new Player(sp2, input, 50, 50, KeyEvent.VK_UP, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_CONTROL));
+		Level levels[] = Level.loadLevelsFromFile("/Level" + level, p1 = new Player(sp1, input, 50, 50, KeyEvent.VK_W, KeyEvent.VK_D, KeyEvent.VK_A, KeyEvent.VK_E), p2 = new Player(sp2, input, 50, 50, KeyEvent.VK_UP, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_CONTROL));
 		l1 = levels[0];
 		l2 = levels[1];
 		cLevel = level;

@@ -2,7 +2,7 @@ package ludumDare.game.entity;
 
 import java.util.List;
 
-import ludumDare.game.entity.mob.Player;
+import ludumDare.game.GameStatePlaying;
 import ludumDare.game.level.Level;
 import ludumDare.gfx.Bitmap;
 import ludumDare.math.AABB;
@@ -18,6 +18,12 @@ public abstract class Entity {
 	protected int lifeTicks;
 	
 	protected boolean isOnFloor = true;
+	
+	protected GameStatePlaying gs;
+	
+	public void registerGameState(GameStatePlaying gs0) {
+		gs = gs0;
+	}
 	
 	public AABB getAABB() {
 		return null;

@@ -59,6 +59,7 @@ public class ExitTunnel extends AOESwitch implements ActivateableEntity {
 				success = true;
 				ding.play(true);
 				System.out.println("Success!");
+				gs.nextLevel();
 			}
 		}
 	}
