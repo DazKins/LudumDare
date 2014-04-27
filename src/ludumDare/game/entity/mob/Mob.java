@@ -1,12 +1,10 @@
 package ludumDare.game.entity.mob;
 
-
 import ludumDare.game.entity.Entity;
 import ludumDare.math.AABB;
 
 public abstract class Mob extends Entity {
 	protected float previousFrameXA;
-	private int health;
 	public boolean isOnMovingPlatform = false;;
 	public float nextFrameXA;
 	
