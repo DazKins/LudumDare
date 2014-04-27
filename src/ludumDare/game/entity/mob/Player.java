@@ -15,7 +15,6 @@ public class Player extends Mob {
 	Audio jumpNormal = new Audio("/jump1.wav");
 	Audio jumpBoost = new Audio("/boostjump.wav");
 	Audio speedBoost = new Audio("/boostspeed.wav");
-	private float previousFrameXA = 0;
 
 	private InputHandler input;
 
@@ -95,6 +94,9 @@ public class Player extends Mob {
 				jumpNormal.play(true);
 			}
 		}
+		
+		if (isOnFloor)
+			System.out.println("hit " + selectedChar);
 
 		ya += 0.045;
 		xa *= 0.875;
@@ -102,11 +104,11 @@ public class Player extends Mob {
 		xa += nextFrameXA;
 		nextFrameXA = 0;
 		
-		if (xa < 0 && getXA() < 0) {
+		if (xa < 0) {
 			if (xa > getXA() * 0.875)
 				xa = (float) (getXA() * 0.875);
 		}
-		if (xa > 0 && getXA() > 0) {
+		if (xa > 0) {
 			if (xa < getXA() * 0.875)
 				xa = (float) (getXA() * 0.875);
 		}
@@ -117,12 +119,6 @@ public class Player extends Mob {
 		xa = 0;
 		
 		isOnMovingPlatform = false;
-	}
-	
-	public void onXCollide(Entity e) {
-		if (e instanceof XMovingPlatform) {
-			this.x += e.getXA() * 2;
-		}
 	}
 	
 	public void onYCollide(Entity e) {

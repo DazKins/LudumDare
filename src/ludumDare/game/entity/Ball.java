@@ -22,34 +22,58 @@ public class Ball extends Mob {
 	public void render(Bitmap b, float xOff, float yOff) {
 		b.blit((int) (x - xOff), (int) (y - yOff), Art.sprites[12][2], false, false, 1.0f, 1.0f);
 	}
-
-	public void onYCollide(Entity e){
-		if (e instanceof JumpBlock || e instanceof SpeedBlock)
-			this.setYA(0);
-		
-	}
 	
-	public void onXCollide(Entity e) {
-		if (e instanceof Player) {
-			this.xa = e.getXA();
-			e.setXA(0);
-			if(!playing && Math.abs(xa) != 0.765625){
-				moving.play(true);
-				playing = true;
-			}else if (e instanceof Ball){
-			e.setXA(xa);
+	public void onCollide(Entity e) {
+		if (e instanceof JumpBlock) {
+			JumpBlock jb = (JumpBlock) e;
+			if (jb.enabled){
+				ya = -jb.boostHeight;
+//				jumpBoost.play(true);
+			}
+		}
+		if (e instanceof SpeedBlock) {
+			SpeedBlock sb = (SpeedBlock) e;
+			if (sb.active) {
+				System.out.println("hit");
+				if (xa < 0)
+					xa = -sb.speed;
+				if (xa > 0)
+					xa = sb.speed;
 			}
 		}
 	}
 
-	public boolean mayPassY(Entity e) {
-		if (e instanceof Player || e instanceof Ball || e instanceof JumpBlock || e instanceof SpeedBlock || e instanceof XMovingPlatform)
-			return false; 
-		return true;
+	public void onYCollide(Entity e) {
+//		if (e instanceof JumpBlock || e instanceof SpeedBlock)
+//			this.setYA(0);
+		if (e instanceof Mob) {
+//			setYA(0);
+//			e.setYA(0);
+			e.setYA(getYA());
+			this.ya = -ya;
+		}
 	}
 	
-	public boolean mayPassX(Entity e){
-		if (e instanceof Ball || e instanceof JumpBlock || e instanceof SpeedBlock || e instanceof XMovingPlatform)
+	public void onXCollide(Entity e) {
+		if (e instanceof Mob) {
+			if (e.getXA() != 0) {
+				float addSpeed = e.getXA() < 0 ? -0.7f : 0.7f;
+				this.xa = (float) (e.getXA() + addSpeed);
+//				e.setXA(0);
+			}
+			if(!playing && Math.abs(xa) != 0.765625) {
+				moving.play(true);
+				playing = true;
+			}
+		} 
+	}
+	
+	public float getXA() {
+		return previousFrameXA;
+	}
+	
+	public boolean mayPass(Entity e) {
+		if (e instanceof Mob)
 			return false;
 		return true;
 	}
@@ -73,8 +97,24 @@ public class Ball extends Mob {
 		ya += 0.045;
 		xa *= 0.875;
 		
+		xa += nextFrameXA;
+		nextFrameXA = 0;
 
-		super.move(xa, ya);
+		if (getXA() < 0) {
+			if (xa > getXA() * 0.875)
+				xa = (float) (getXA() * 0.875);
+		}
+		if (getXA() > 0) {
+			if (xa < getXA() * 0.875)
+				xa = (float) (getXA() * 0.875);
+		}
+		
+		move(xa, ya);
+
+		previousFrameXA = xa;
+		xa = 0;
+		
+		isOnMovingPlatform = false;
 	}
 
 }

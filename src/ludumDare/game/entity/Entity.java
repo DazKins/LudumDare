@@ -67,9 +67,9 @@ public abstract class Entity {
 					boolean anyCol = false;
 					if (!e.mayPass(this)) {
 						if (this.getAABB().shifted(this.xa, 0).intersects(e.getAABB())) {
-							this.xa = 0;
 							e.onXCollide(this);
 							this.onXCollide(e);
+							this.xa = 0;
 							
 							anyCol = true;
 						}
@@ -78,9 +78,9 @@ public abstract class Entity {
 								if (this.ya > 0)
 									isOnFloor = true;
 							}
-							this.ya = 0;
 							e.onYCollide(this);
 							this.onYCollide(e);
+							this.ya = 0;
 							
 							anyCol = true;
 						}

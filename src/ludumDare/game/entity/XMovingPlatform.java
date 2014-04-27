@@ -45,20 +45,14 @@ public class XMovingPlatform extends Entity implements ActivateableEntity {
 				m.nextFrameXA = getXA();
 				m.isOnMovingPlatform = true;
 			}
-			if (m.getAABB().intersects(this.getAABB())) {
-				// m.setX(m.getX() +);
-				// m.setY(m.getY() + m.getAABB().yDifference(this.getAABB()));
-			}
 		}
 	}
 	
-//	public void onXCollide(Entity e) {
-//		if (e instanceof XMovingPlatform) {
-//			System.out.println("hit");
-//			if (Math.abs(e.getXA()) > this.getXA())
-//				e.setXA(0);
-//		}
-//	}
+	public void onXCollide(Entity e) {
+		if (e instanceof Mob) {
+			e.setX(e.getX() + getXA());
+		}
+	}
 
 	public boolean mayPass(Entity e) {
 		if (e instanceof Mob) {

@@ -1,6 +1,7 @@
 package ludumDare.game.entity;
 
 import ludumDare.audio.Audio;
+import ludumDare.game.entity.mob.Mob;
 import ludumDare.game.entity.mob.Player;
 import ludumDare.gfx.Art;
 import ludumDare.gfx.Bitmap;
@@ -28,7 +29,7 @@ public class SpeedBlock extends Entity implements ActivateableEntity {
 	}
 
 	public boolean mayPass(Entity e) {
-		if (e instanceof Player)
+		if (e instanceof Mob)
 			return false;
 		return true;
 	}
