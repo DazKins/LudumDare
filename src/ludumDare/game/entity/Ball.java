@@ -2,6 +2,7 @@ package ludumDare.game.entity;
 
 import ludumDare.audio.Audio;
 import ludumDare.game.entity.mob.Mob;
+import ludumDare.game.entity.mob.Player;
 import ludumDare.gfx.Art;
 import ludumDare.gfx.Bitmap;
 import ludumDare.math.AABB;
@@ -60,11 +61,13 @@ public class Ball extends Mob {
 				this.xa = (float) (e.getXA() + addSpeed);
 //				e.setXA(0);
 			}
+		} 
+		if (e instanceof Player) {
 			if(!playing && Math.abs(xa) != 0.765625) {
 				moving.play(true);
 				playing = true;
 			}
-		} 
+		}
 	}
 	
 	public float getXA() {

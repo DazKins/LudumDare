@@ -88,7 +88,7 @@ public class Player extends Mob {
 			if (input.keys[leftKey])
 				xa += -1;
 		}
-		if (input.keys[jumpKey]) {
+		if (input.keyStream[jumpKey]) {
 			if (isOnFloor) {
 				ya = -2;
 				jumpNormal.play(true);
