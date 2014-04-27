@@ -1,11 +1,15 @@
 package ludumDare.game.entity;
 
+import ludumDare.audio.Audio;
 import ludumDare.game.entity.mob.Mob;
 import ludumDare.gfx.Art;
 import ludumDare.gfx.Bitmap;
 import ludumDare.math.AABB;
 
 public class XMovingPlatform extends Entity implements ActivateableEntity {
+	Audio on = new Audio("/entityon.wav");
+	Audio off = new Audio("/entityoff.wav");
+	
 	public boolean enabled;
 	public float speed = 0.1f;
 	private int targetX;
@@ -20,6 +24,11 @@ public class XMovingPlatform extends Entity implements ActivateableEntity {
 	}
 
 	public void onActivate(Entity e) {
+		if (enabled) {
+			off.play(true);
+		} else {
+			on.play(true);
+		}
 		enabled = !enabled;
 	}
 	

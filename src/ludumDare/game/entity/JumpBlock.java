@@ -1,11 +1,15 @@
 package ludumDare.game.entity;
 
+import ludumDare.audio.Audio;
 import ludumDare.game.entity.mob.Player;
 import ludumDare.gfx.Art;
 import ludumDare.gfx.Bitmap;
 import ludumDare.math.AABB;
 
 public class JumpBlock extends Entity implements ActivateableEntity {
+	Audio on = new Audio("/entityon.wav");
+	Audio off = new Audio("/entityoff.wav");
+
 	public boolean enabled;
 	public float boostHeight;
 	
@@ -15,6 +19,11 @@ public class JumpBlock extends Entity implements ActivateableEntity {
 	}
 
 	public void onActivate(Entity e) {
+		if (enabled) {
+			off.play(true);
+		} else {
+			on.play(true);
+		}
 		enabled = !enabled;
 	}
 	

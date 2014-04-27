@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ludumDare.MainComponent;
+import ludumDare.audio.Audio;
 import ludumDare.gfx.Art;
 import ludumDare.gfx.Bitmap;
 import ludumDare.gfx.Font;
@@ -13,7 +14,8 @@ import ludumDare.input.InputHandler;
 
 public class GameStateMenu extends GameState {
 	private List<String> menuOptions = new ArrayList<String>();
-	
+	Audio blip = new Audio("/menublip.wav");
+	Audio select = new Audio ("/menuselect.wav");
 	private int selectedMenuOption;
 	
 	public GameStateMenu(MainComponent m, InputHandler i, Dimension[] ws) {
@@ -40,14 +42,17 @@ public class GameStateMenu extends GameState {
 	public void tick() {
 		if (input.keyStream[KeyEvent.VK_UP]) {
 			selectedMenuOption -= 1;
+			blip.play(true);
 		}
 		if (input.keyStream[KeyEvent.VK_DOWN]) {
 			selectedMenuOption += 1;
+			blip.play(true);			
 		}
 		
 		if (input.keyStream[KeyEvent.VK_ENTER]) {
 			if (selectedMenuOption == 0) {
 				mc.changegameState(new GameStateCharacterSelection(mc, input, windowSizes));
+				select.play(true);
 			}
 			if (selectedMenuOption == 1) {
 				System.exit(0);

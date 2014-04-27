@@ -13,7 +13,7 @@ import ludumDare.math.AABB;
 public class Player extends Mob {
 	Audio jumpNormal = new Audio("/jump1.wav");
 	Audio jumpBoost = new Audio("/boostjump.wav");
-	
+	Audio speedBoost = new Audio("/boostspeed.wav");
 	private float previousFrameXA = 0;
 
 	private InputHandler input;
@@ -117,5 +117,15 @@ public class Player extends Mob {
 		xa = 0;
 		
 		isOnMovingPlatform = false;
+	}
+	
+	public void onYCollide(Entity e) {
+		if (e instanceof SpeedBlock) {
+			SpeedBlock sb = (SpeedBlock) e;
+			if (sb.active) {
+				if (Math.abs(xa)!= 0.0f)
+				speedBoost.play(true);
+			}
+		}
 	}
 }

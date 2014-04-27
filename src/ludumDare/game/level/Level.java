@@ -15,6 +15,7 @@ import ludumDare.game.entity.Button;
 import ludumDare.game.entity.Door;
 import ludumDare.game.entity.Entity;
 import ludumDare.game.entity.EntitySwitch;
+import ludumDare.game.entity.ExitTunnel;
 import ludumDare.game.entity.JumpBlock;
 import ludumDare.game.entity.Lever;
 import ludumDare.game.entity.PressurePlate;
@@ -186,6 +187,8 @@ public class Level {
 							e = new SpeedBlock(x * 8, y * 8, rr);
 						} else if (bb == 104) {
 							e = new XMovingPlatform(x * 8, y * 8, x * 8 + rr * 8);
+						} else if (bb == 105){
+							e = new ExitTunnel(x*8, y*8);
 						}
 						if (activateableMap.containsKey(gg)) {
 							activateableMap.get(gg).add(e);

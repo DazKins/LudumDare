@@ -1,31 +1,38 @@
 package ludumDare.game.entity;
 
+import ludumDare.audio.Audio;
 import ludumDare.game.entity.mob.Player;
 import ludumDare.gfx.Art;
 import ludumDare.gfx.Bitmap;
 import ludumDare.math.AABB;
 
 public class SpeedBlock extends Entity implements ActivateableEntity {
+	Audio on = new Audio("/entityon.wav");
+	Audio off = new Audio("/entityoff.wav");
+
 	public boolean active;
 	public int speed;
-	
+
 	public SpeedBlock(int x, int y, int speed) {
 		super(x, y);
 		this.speed = speed;
-		System.out.println(speed);
 	}
 
 	public void onActivate(Entity e) {
+		if (active) {
+			off.play(true);
+		} else {
+			on.play(true);
+		}
 		active = !active;
 	}
 
-	
 	public boolean mayPass(Entity e) {
 		if (e instanceof Player)
 			return false;
 		return true;
 	}
-	
+
 	public AABB getAABB() {
 		return new AABB(x, y, x + 8, y + 8);
 	}

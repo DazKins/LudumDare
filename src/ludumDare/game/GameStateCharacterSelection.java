@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 
 import ludumDare.MainComponent;
+import ludumDare.audio.Audio;
 import ludumDare.gfx.Art;
 import ludumDare.gfx.Bitmap;
 import ludumDare.gfx.Font;
@@ -12,7 +13,8 @@ import ludumDare.input.InputHandler;
 public class GameStateCharacterSelection extends GameState {
 	private int selectedCharacter1;
 	private int selectedCharacter2;
-	
+	Audio blip = new Audio("/menublip.wav");
+	Audio select = new Audio("/menuselect.wav");
 	public String names[] = {"Steve", "Jim", "Zombie", "Tyrone", "Lego Man", "Notch", "Miner", "Lara"};
 
 	public GameStateCharacterSelection(MainComponent m, InputHandler i, Dimension[] ws) {
@@ -44,18 +46,28 @@ public class GameStateCharacterSelection extends GameState {
 	}
 
 	public void tick() {
-		if (input.keyStream[KeyEvent.VK_ENTER])
+		if (input.keyStream[KeyEvent.VK_ENTER]){
 			mc.changegameState(new GameStatePlaying(mc, input, windowSizes, selectedCharacter1, selectedCharacter2));
+			select.play(true);
+		}
 
-		if (input.keyStream[KeyEvent.VK_D])
+		if (input.keyStream[KeyEvent.VK_D]){
 			selectedCharacter1 += 1;
-		if (input.keyStream[KeyEvent.VK_A])
+			blip.play(true);
+		}
+		if (input.keyStream[KeyEvent.VK_A]){
 			selectedCharacter1 -= 1;
+			blip.play(true);
+		}
 		
-		if (input.keyStream[KeyEvent.VK_RIGHT])
+		if (input.keyStream[KeyEvent.VK_RIGHT]){
 			selectedCharacter2 += 1;
-		if (input.keyStream[KeyEvent.VK_LEFT])
+			blip.play(true);
+		}
+		if (input.keyStream[KeyEvent.VK_LEFT]){
 			selectedCharacter2 -= 1;
+			blip.play(true);
+		}
 		
 		if (selectedCharacter2 < 0)
 			selectedCharacter2 = 7;
