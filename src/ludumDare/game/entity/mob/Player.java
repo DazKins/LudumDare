@@ -115,6 +115,7 @@ public class Player extends Mob {
 		
 		previousFrameXA = xa;
 		xa = 0;
+		nextFrameXA = 0;
 		
 		isOnMovingPlatform = false;
 	}
