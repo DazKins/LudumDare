@@ -8,5 +8,6 @@ BLUE COLOR
 102 = Jump block (r value indicates jump height)
 103 = Speed block (r value indicates boost speed)
 104 = XMovingPlatform (r value indicates distance)
+105 = Exit tunnel
 200 = Moveable block
 
