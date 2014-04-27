@@ -169,15 +169,17 @@ public class Level {
 						} else if (bb == 4) {
 							e = new TimerButton(x * 8, y * 8, rr);
 						}
-						if (switchMap.containsKey(gg)) {
-							switchMap.get(gg).add(e);
-						} else {
-							switchMap.put(gg, new ArrayList<EntitySwitch>());
-							switchMap.get(gg).add(e);
+						if (e != null) {
+							if (switchMap.containsKey(gg)) {
+								switchMap.get(gg).add(e);
+							} else {
+								switchMap.put(gg, new ArrayList<EntitySwitch>());
+								switchMap.get(gg).add(e);
+							}
+							if (!links.contains(gg))
+								links.add(gg);
+							rValue[i].addEntity((Entity) e);
 						}
-						if (!links.contains(gg))
-							links.add(gg);
-						rValue[i].addEntity((Entity) e);
 					} else if (bb < 200) {
 						ActivateableEntity e = null;
 						if (bb == 100) {
@@ -193,6 +195,7 @@ public class Level {
 						} else if (bb == 105) {
 							e = new ExitTunnel(x * 8, y * 8);
 						}
+						if (e != null) {
 							if (activateableMap.containsKey(gg)) {
 								activateableMap.get(gg).add(e);
 							} else {
@@ -202,6 +205,7 @@ public class Level {
 							if (!links.contains(gg))
 								links.add(gg);
 							rValue[i].addEntity((Entity) e);
+						}
 					} else if (bb == 200) {
 						rValue[i].addEntity(new Ball(x * 8, y * 8));
 					}

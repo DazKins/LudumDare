@@ -19,11 +19,17 @@ public class GameStatePlaying extends GameState {
 	private Player p1;
 	private Player p2;
 	
+	private int sp1;
+	private int sp2;
+	
+	private int cLevel = 1;
+	
 	public GameStatePlaying(MainComponent m, InputHandler i, Dimension[] ws, int cs1, int cs2) {
 		super(m, i, ws);
-		Level levels[] = Level.loadLevelsFromFile("/Level1", p1 = new Player(cs1, input, 50, 50, KeyEvent.VK_W, KeyEvent.VK_D, KeyEvent.VK_A, KeyEvent.VK_E), p2 = new Player(cs2, input, 50, 50, KeyEvent.VK_UP, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_CONTROL));
-		l1 = levels[0];
-		l2 = levels[1];
+		setLevel(cLevel);
+		
+		sp1 = cs1;
+		sp2 = cs2;
 		
 		l1.registerSecondaryLevel(l2);
 		l2.registerSecondaryLevel(l1);
@@ -51,9 +57,25 @@ public class GameStatePlaying extends GameState {
 			xOff2 = (float) ((l2.getWidth() * 8) - windowSizes[1].getWidth());
 		if (xOff2 < 0)
 			xOff2 = 0;
+		
+		if (input.keyStream[KeyEvent.VK_R]) {
+			System.out.println("hit");
+			restart();
+		}
+	}
+	
+	public void restart() {
+		setLevel(cLevel);
+	}
+	
+	public void nextLevel() {
+		setLevel(cLevel + 1);
 	}
 	
 	public void setLevel(int level) {
-		
+		Level levels[] = Level.loadLevelsFromFile("/Level2", p1 = new Player(sp1, input, 50, 50, KeyEvent.VK_W, KeyEvent.VK_D, KeyEvent.VK_A, KeyEvent.VK_E), p2 = new Player(sp2, input, 50, 50, KeyEvent.VK_UP, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_CONTROL));
+		l1 = levels[0];
+		l2 = levels[1];
+		cLevel = level;
 	}
 }

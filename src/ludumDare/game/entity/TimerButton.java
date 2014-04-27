@@ -12,6 +12,7 @@ public class TimerButton extends AcitvateableSwitch {
 	public TimerButton(float x, float y, int noOfTicks) {
 		super(new AABB(x, y + 4, x + 8, y + 8));
 		tickTimer = noOfTicks;
+		ticksSinceLastActivate = 0;
 		this.x = x;
 		this.y = y;
 	}
@@ -19,10 +20,16 @@ public class TimerButton extends AcitvateableSwitch {
 	public void onCollide(Entity e) {
 		if (e instanceof Player) {
 			Player p = (Player) e;
-			if (p.isInteracting() && lifeTicks - ticksSinceLastActivate > tickTimer) {
-				super.onActivate(e);
-				ticksSinceLastActivate = lifeTicks;
-				activated = true;
+			if (lifeTicks > tickTimer) {
+				if (p.isInteracting() && lifeTicks - ticksSinceLastActivate > tickTimer) {
+					super.onActivate(e);
+					ticksSinceLastActivate = lifeTicks;
+				}
+			} else {
+				if (p.isInteracting()) {
+					super.onActivate(e);
+					ticksSinceLastActivate = lifeTicks;
+				}
 			}
 		}
 	}
