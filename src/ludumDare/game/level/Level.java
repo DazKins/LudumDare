@@ -193,6 +193,7 @@ public class Level {
 							e = new XMovingPlatform(x * 8, y * 8, x * 8 + rr * 8);
 						} else if (bb == 105) {
 							e = new ExitTunnel(x * 8, y * 8);
+						}
 							if (activateableMap.containsKey(gg)) {
 								activateableMap.get(gg).add(e);
 							} else {
@@ -202,9 +203,8 @@ public class Level {
 							if (!links.contains(gg))
 								links.add(gg);
 							rValue[i].addEntity((Entity) e);
-						} else if (bb == 200) {
-							rValue[i].addEntity(new Ball(x * 8, y * 8));
-						}
+					} else if (bb == 200) {
+						rValue[i].addEntity(new Ball(x * 8, y * 8));
 					}
 				}
 			}

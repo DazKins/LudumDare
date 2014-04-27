@@ -65,7 +65,7 @@ public class ExitTunnel extends AOESwitch implements ActivateableEntity {
 	
 
 	public boolean isPlayer(Entity e){
-		if (e.getClass().equals(ludumDare.game.entity.mob.Player.class))
+		if (e instanceof Player)
 			return true;
 		
 		return false;

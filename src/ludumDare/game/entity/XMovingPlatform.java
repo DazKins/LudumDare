@@ -42,7 +42,6 @@ public class XMovingPlatform extends Entity implements ActivateableEntity {
 		if (e instanceof Mob) {
 			Mob m = (Mob) e;
 			if (!m.isOnMovingPlatform) {
-				System.out.println("hit");
 				m.nextFrameXA = getXA();
 				m.isOnMovingPlatform = true;
 			}
