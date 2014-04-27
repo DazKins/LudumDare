@@ -1,7 +1,7 @@
 package ludumDare.game.entity;
 
 import ludumDare.audio.Audio;
-import ludumDare.game.entity.mob.Mob;
+import ludumDare.game.entity.mob.Player;
 import ludumDare.gfx.Art;
 import ludumDare.gfx.Bitmap;
 import ludumDare.math.AABB;
@@ -9,6 +9,7 @@ import ludumDare.math.AABB;
 public class ExitTunnel extends AOESwitch implements ActivateableEntity {
 	Audio ding = new Audio("/success.wav");
 	Audio openExit = new Audio("/openexit.wav");
+	Entity ping;
 	
 	private int ticksSinceLastActivate;
 	private static boolean open = false;
@@ -23,6 +24,7 @@ public class ExitTunnel extends AOESwitch implements ActivateableEntity {
 	public void onCollide(Entity e) {
 		super.onCollide(e);
 		ticksSinceLastActivate = lifeTicks;
+		ping = e;
 	}
 
 	public void onActivate(Entity e) {
@@ -49,18 +51,27 @@ public class ExitTunnel extends AOESwitch implements ActivateableEntity {
 
 	public void tick() {
 		super.tick();
-		if (open && !success) {
+		if (open && !success && isPlayer(ping)) {
 			if (lifeTicks - ticksSinceLastActivate > 1 && activated) {
 				activated = false;
 			}
 			if (activated) {
+				
 				success = true;
 				ding.play(true);
 				System.out.println("Success!");
 			}
 		}
 	}
+	
 
+	public boolean isPlayer(Entity e){
+		if (e.getClass().equals(ludumDare.game.entity.mob.Player.class))
+			return true;
+		
+		return false;
+	}
+	
 	public void render(Bitmap b, float xOff, float yOff) {
 		int state = open ? 16 : 18;
 		//column 1

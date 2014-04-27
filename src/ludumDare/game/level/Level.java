@@ -15,6 +15,7 @@ import ludumDare.game.entity.Button;
 import ludumDare.game.entity.Door;
 import ludumDare.game.entity.Entity;
 import ludumDare.game.entity.EntitySwitch;
+import ludumDare.game.entity.EntranceTunnel;
 import ludumDare.game.entity.ExitTunnel;
 import ludumDare.game.entity.JumpBlock;
 import ludumDare.game.entity.Lever;

@@ -23,6 +23,12 @@ public class Ball extends Mob {
 		b.blit((int) (x - xOff), (int) (y - yOff), Art.sprites[12][2], false, false, 1.0f, 1.0f);
 	}
 
+	public void onYCollide(Entity e){
+		if (e instanceof JumpBlock || e instanceof SpeedBlock)
+			this.setYA(0);
+		
+	}
+	
 	public void onXCollide(Entity e) {
 		if (e instanceof Player) {
 			this.xa = e.getXA();
@@ -30,12 +36,20 @@ public class Ball extends Mob {
 			if(!playing && Math.abs(xa) != 0.765625){
 				moving.play(true);
 				playing = true;
+			}else if (e instanceof Ball){
+			e.setXA(xa);
 			}
 		}
 	}
 
 	public boolean mayPassY(Entity e) {
-		if (e instanceof Player)
+		if (e instanceof Player || e instanceof Ball || e instanceof JumpBlock || e instanceof SpeedBlock || e instanceof XMovingPlatform)
+			return false; 
+		return true;
+	}
+	
+	public boolean mayPassX(Entity e){
+		if (e instanceof Ball || e instanceof JumpBlock || e instanceof SpeedBlock || e instanceof XMovingPlatform)
 			return false;
 		return true;
 	}

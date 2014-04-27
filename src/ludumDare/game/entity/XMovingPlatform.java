@@ -11,11 +11,15 @@ public class XMovingPlatform extends Entity implements ActivateableEntity {
 	Audio off = new Audio("/entityoff.wav");
 	
 	public boolean enabled;
-	public float speed = 0.1f;
+	private boolean bounced = false;
+	private boolean reverse = false;
+	public float speed = 1.0f;
 	private int targetX;
+	private int startX;
 	
 	public XMovingPlatform(float x, float y, int tx) {
 		super(x, y);
+		startX = (int) x;
 		targetX = tx;
 	}
 	
@@ -29,6 +33,7 @@ public class XMovingPlatform extends Entity implements ActivateableEntity {
 		} else {
 			on.play(true);
 		}
+		if (targetX < startX) reverse = true;
 		enabled = !enabled;
 	}
 	
@@ -43,6 +48,8 @@ public class XMovingPlatform extends Entity implements ActivateableEntity {
 //				m.setX(m.getX() +);
 //				m.setY(m.getY() + m.getAABB().yDifference(this.getAABB()));
 			}
+		}else if (e instanceof Ball){
+			e.setXA(getXA());
 		}
 	}
 	
@@ -63,10 +70,27 @@ public class XMovingPlatform extends Entity implements ActivateableEntity {
 		xa = 0;
 		
 		if (enabled) {
-			if (x < targetX)
+			if (!reverse){
+			if (x < targetX && !bounced){
 				xa = speed;
+		}else if (x > startX){
+			xa = speed * -1;
+			bounced = true;
+		}else if (x == startX){
+			bounced = false;
 		}
-		
+		}else{
+			if (x > targetX && !bounced){
+				xa = speed;
+		}else if (x < startX){
+			xa = speed * -1;
+			bounced = true;
+		}else if (x == startX){
+			bounced = false;
+		}
+	
+		}
+		}
 		move(xa, ya);
 	}
 }
