@@ -94,9 +94,6 @@ public class Player extends Mob {
 				jumpNormal.play(true);
 			}
 		}
-		
-		if (isOnFloor)
-			System.out.println("hit " + selectedChar);
 
 		ya += 0.045;
 		xa *= 0.875;

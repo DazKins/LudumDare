@@ -68,6 +68,9 @@ public class GameStateCharacterSelection extends GameState {
 			selectedCharacter2 -= 1;
 			blip.play(true);
 		}
+		if (input.keyStream[KeyEvent.VK_ESCAPE]){
+			mc.changegameState(new GameStateMenu(mc, input, windowSizes));
+		}
 		
 		if (selectedCharacter2 < 0)
 			selectedCharacter2 = 7;

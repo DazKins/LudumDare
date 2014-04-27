@@ -22,6 +22,7 @@ public class GameStateMenu extends GameState {
 		super(m, i, ws);
 		
 		menuOptions.add("Play");
+		menuOptions.add("Instructions");
 		menuOptions.add("Exit");
 	}
 
@@ -55,7 +56,12 @@ public class GameStateMenu extends GameState {
 				select.play(true);
 			}
 			if (selectedMenuOption == 1) {
+				mc.changegameState(new GameStateInstructions(mc, input, windowSizes));
+				select.play(true);
+			}
+			if (selectedMenuOption == 2) {
 				System.exit(0);
+				select.play(true);
 			}
 		}
 		
