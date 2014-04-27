@@ -6,7 +6,7 @@ import ludumDare.math.AABB;
 
 public abstract class Mob extends Entity {
 	private int health;
-	public boolean isOnMovingPlatform;
+	public boolean isOnMovingPlatform = false;;
 	public float nextFrameXA;
 	
 	public Mob(int x, int y) {

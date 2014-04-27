@@ -1,6 +1,7 @@
 package ludumDare.game.entity.mob;
 
 import ludumDare.audio.Audio;
+import ludumDare.game.entity.Ball;
 import ludumDare.game.entity.Entity;
 import ludumDare.game.entity.JumpBlock;
 import ludumDare.game.entity.SpeedBlock;
@@ -21,8 +22,6 @@ public class Player extends Mob {
 	private int jumpKey, leftKey, rightKey, interactKey;
 
 	private int selectedChar;
-	
-	private boolean isOnMovingPlatform;
 	
 	public float getXA() {
 		return previousFrameXA;
@@ -84,8 +83,6 @@ public class Player extends Mob {
 	public void tick() {
 		super.tick();
 		
-		xa = nextFrameXA;
-		
 		if (xa >= -1 && xa <= 1) {
 			if (input.keys[rightKey])
 				xa += 1;
@@ -102,6 +99,9 @@ public class Player extends Mob {
 		ya += 0.045;
 		xa *= 0.875;
 		
+		xa += nextFrameXA;
+		nextFrameXA = 0;
+		
 		if (xa < 0 && getXA() < 0) {
 			if (xa > getXA() * 0.875)
 				xa = (float) (getXA() * 0.875);
@@ -115,9 +115,14 @@ public class Player extends Mob {
 		
 		previousFrameXA = xa;
 		xa = 0;
-		nextFrameXA = 0;
 		
 		isOnMovingPlatform = false;
+	}
+	
+	public void onXCollide(Entity e) {
+		if (e instanceof XMovingPlatform) {
+			this.x += e.getXA() * 2;
+		}
 	}
 	
 	public void onYCollide(Entity e) {

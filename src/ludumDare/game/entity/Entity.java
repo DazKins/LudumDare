@@ -64,8 +64,8 @@ public abstract class Entity {
 			Entity e = entities.get(i);
 			if (e != this) {
 				if (e.getAABB() != null) {
+					boolean anyCol = false;
 					if (!e.mayPass(this)) {
-						boolean anyCol = false;
 						if (this.getAABB().shifted(this.xa, 0).intersects(e.getAABB())) {
 							this.xa = 0;
 							e.onXCollide(this);
@@ -88,10 +88,11 @@ public abstract class Entity {
 							e.onCollide(this);
 							this.onCollide(e);
 						}
-					}
-					if (this.getAABB().shifted(this.xa, this.ya).intersects(e.getAABB())) {
-						e.onCollide(this);
-						this.onCollide(e);
+					} if (!anyCol) {
+						if (this.getAABB().shifted(this.xa, this.ya).intersects(e.getAABB())) {
+							e.onCollide(this);
+							this.onCollide(e);
+						}
 					}
 					if (this.getAABB().shifted(0, this.ya).intersects(e.getAABB())) {
 						if (!e.mayPassY(this)) {
