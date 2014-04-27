@@ -30,28 +30,28 @@ import ludumDare.gfx.Art;
 import ludumDare.gfx.Bitmap;
 
 public class Level {
-	//25 and a bit tiles in view
-	
+	// 25 and a bit tiles in view
+
 	private List<Entity> entities = new ArrayList<Entity>();
 	private int[] tiles;
-	
+
 	private int w;
 	private int h;
-	
+
 	private Level pairedLevel;
-	
+
 	public int getWidth() {
 		return w;
 	}
-	
+
 	public int getHeight() {
 		return h;
 	}
-	
+
 	public void registerSecondaryLevel(Level l2) {
 		pairedLevel = l2;
 	}
-	
+
 	public void render(Bitmap b, float xOff, float yOff) {
 		for (int i = 0; i < w / 4 + 1; i++) {
 			b.blit((int) (i * 128 - xOff / 4), 0, Art.background1, false, false, 1.0f, 1.0f);
@@ -67,66 +67,66 @@ public class Level {
 			entities.get(i).render(b, xOff, yOff);
 		}
 	}
-	
+
 	public void tick() {
 		for (int i = 0; i < entities.size(); i++) {
 			entities.get(i).tick();
 		}
 	}
-	
+
 	public void addEntity(Entity e) {
 		e.registerLevel(this);
 		entities.add(e);
 	}
-	
+
 	public List<Entity> getEntities() {
 		return entities;
 	}
-	
+
 	public void setTile(int x, int y, Tile t) {
 		tiles[x + y * w] = t.getID();
 	}
-	
+
 	public Tile getTile(int x, int y) {
 		if (x >= 0 && y >= 0 && x < w && y < h) {
-			if(tiles[x + y * w] != -1)
+			if (tiles[x + y * w] != -1)
 				return Tile.tiles[tiles[x + y * w]];
 			else
 				return null;
 		}
 		return null;
 	}
-	
+
 	public static Level[] loadLevelsFromFile(String path, Player p1, Player p2) {
 		BufferedImage img1 = null;
 		BufferedImage img2 = null;
-		
+
 		Level rValue[] = new Level[2];
 		rValue[0] = new Level();
 		rValue[1] = new Level();
-		
+
 		try {
 			img1 = ImageIO.read(Level.class.getResourceAsStream(path + "_1.png"));
 			img2 = ImageIO.read(Level.class.getResourceAsStream(path + "_2.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		rValue[0].w = img1.getWidth();
 		rValue[0].h = img1.getHeight();
 		rValue[1].w = img2.getWidth();
 		rValue[1].h = img2.getHeight();
-		
+
 		rValue[0].tiles = new int[rValue[0].w * rValue[0].h];
 		rValue[1].tiles = new int[rValue[1].w * rValue[1].h];
-		
+
 		int pixels1[] = img1.getRGB(0, 0, rValue[0].w, rValue[0].h, null, 0, rValue[0].w);
 		int pixels2[] = img2.getRGB(0, 0, rValue[1].w, rValue[1].h, null, 0, rValue[1].w);
-		
+
 		Map<Integer, List<ActivateableEntity>> activateableMap = new HashMap<Integer, List<ActivateableEntity>>();
 		Map<Integer, List<EntitySwitch>> switchMap = new HashMap<Integer, List<EntitySwitch>>();
 		List<Integer> links = new ArrayList<Integer>();
-		
+
 		for (int i = 0; i < rValue.length; i++) {
 			for (int x = 0; x < rValue[i].w; x++) {
 				for (int y = 0; y < rValue[i].h; y++) {
@@ -145,6 +145,9 @@ public class Level {
 						if (gg == 255)
 							rValue[i].tiles[x + y * rValue[i].w] = 0;
 						else {
+							/*ActivateableEntity e = null;
+							e = new EntranceTunnel(x * 8, (y - 4) * 8);
+							rValue[i].addEntity((Entity) e); */
 							if (i == 0) {
 								p1.setX(x * 8);
 								p1.setY(y * 8);
@@ -155,8 +158,8 @@ public class Level {
 								rValue[1].addEntity(p2);
 							}
 						}
-					} else if (bb == 0) {}
-					else if (bb < 100) {
+					} else if (bb == 0) {
+					} else if (bb < 100) {
 						EntitySwitch e = null;
 						if (bb == 1) {
 							e = new Button(x * 8, y * 8);
@@ -188,25 +191,25 @@ public class Level {
 							e = new SpeedBlock(x * 8, y * 8, rr);
 						} else if (bb == 104) {
 							e = new XMovingPlatform(x * 8, y * 8, x * 8 + rr * 8);
-						} else if (bb == 105){
-							e = new ExitTunnel(x*8, y*8);
+						} else if (bb == 105) {
+							e = new ExitTunnel(x * 8, y * 8);
+							if (activateableMap.containsKey(gg)) {
+								activateableMap.get(gg).add(e);
+							} else {
+								activateableMap.put(gg, new ArrayList<ActivateableEntity>());
+								activateableMap.get(gg).add(e);
+							}
+							if (!links.contains(gg))
+								links.add(gg);
+							rValue[i].addEntity((Entity) e);
+						} else if (bb == 200) {
+							rValue[i].addEntity(new Ball(x * 8, y * 8));
 						}
-						if (activateableMap.containsKey(gg)) {
-							activateableMap.get(gg).add(e);
-						} else {
-							activateableMap.put(gg, new ArrayList<ActivateableEntity>());
-							activateableMap.get(gg).add(e);
-						}
-						if (!links.contains(gg))
-							links.add(gg);
-						rValue[i].addEntity((Entity) e);
-					} else if (bb == 200) {
-						rValue[i].addEntity(new Ball(x * 8, y * 8));
 					}
 				}
 			}
 		}
-		
+
 		for (int i = 0; i < links.size(); i++) {
 			List<ActivateableEntity> e = activateableMap.get(links.get(i));
 			List<EntitySwitch> es = switchMap.get(links.get(i));
@@ -219,7 +222,7 @@ public class Level {
 				}
 			}
 		}
-		
+
 		return rValue;
 	}
 }
